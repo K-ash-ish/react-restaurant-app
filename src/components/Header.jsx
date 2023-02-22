@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 function Header() {
   return (
     <nav className="flex flex-row w-full items-center justify-around my-4">

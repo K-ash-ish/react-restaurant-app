@@ -1,13 +1,31 @@
 import ReastaurantCard from "./RestaurantCard";
-import restaurantList from "../constant";
+import { v4 as uuidv4 } from "uuid";
+import { useEffect, useState } from "react";
 const Body = () => {
-  return (
-    <div className="container w-full border-2 flex h-5/6">
+  const [allRestaurants, setAllRestaurants] = useState([]);
+  useEffect(() => {
+    getRestaurantDetails();
+  }, []);
+  const getRestaurantDetails = async () => {
+    console.log("api call");
+    const details = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.1768293&lng=79.97640129999999&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await details.json();
+    console.log(json?.data?.cards[2]?.data?.data?.cards);
+    setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+  };
+  return allRestaurants.length > 0 ? (
+    <div className="wrapper my-0 mx-auto w-5/6 border-2  flex flex-col  h-1/2">
       <h1>Order From</h1>
-      {restaurantList.map((restaurant) => {
-        return <ReastaurantCard {...restaurant.data} />;
-      })}
+      <div className="restaurant-container  flex flex-row justify-center flex-wrap ">
+        {allRestaurants.map((restaurant) => {
+          return <ReastaurantCard key={uuidv4()} {...restaurant.data} />;
+        })}
+      </div>
     </div>
+  ) : (
+    <p className="text-3xl">Loading</p>
   );
 };
 export default Body;

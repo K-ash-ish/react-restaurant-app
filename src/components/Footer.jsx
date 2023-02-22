@@ -1,16 +1,17 @@
 function Footer() {
+  // need to change button to link
   return (
     <footer className="border-t-2   py-4 w-full flex  justify-around items-center">
       <div className="social-links ">
-        <a href="#" className="px-2">
+        <button href="#" className="px-2">
           Github
-        </a>
-        <a href="#" className="px-2">
+        </button>
+        <button href="#" className="px-2">
           Linked
-        </a>
-        <a href="#" className="px-2">
+        </button>
+        <button href="#" className="px-2">
           Twitter
-        </a>
+        </button>
       </div>
       <p>
         Made with ❤️ by <span className="underline font-semibold">Kashish</span>{" "}
