@@ -9,15 +9,15 @@ function ReastaurantCard(props) {
     slaString,
   } = props;
   return (
-    <div className="card  p-4 m-3  flex  sm:flex-col  items-center justify-around hover:border-2 cursor-pointer">
-      <div className="restaurant-img sm:w-full  w-1/4 h-24 flex items-center">
+    <div className="card w-full border-2  p-4 m-3  flex  sm:flex-col  items-center justify-around hover:border-2 cursor-pointer">
+      <div className=" restaurant-img sm:w-full  w-1/4 h-24 flex items-center">
         <img
           className="rounded-xl sm:rounded-none "
           src={IMG_CDN_URL + cloudinaryImageId}
           alt={name + "restaurant"}
         />
       </div>
-      <div className="card-details  sm:w-full">
+      <div className="card-details  sm:w-full w-3/5">
         <h1 className="font-bold my-1">{name}</h1>
         <div className="cuisines  text-xs flex flex-wrap">
           <p>{cuisines.join(", ")}</p>
