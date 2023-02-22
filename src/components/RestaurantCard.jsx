@@ -9,20 +9,28 @@ function ReastaurantCard(props) {
     slaString,
   } = props;
   return (
-    <div className="card border-2 p-2 m-3  flex flex-col">
-      <img src={IMG_CDN_URL + cloudinaryImageId} alt={name + "restaurant"} />
-      <h1 className="font-bold my-1">{name}</h1>
-      <div className="cuisines  text-xs flex flex-wrap">
-        <p>{cuisines.join(", ")}</p>
+    <div className="card  p-4 m-3  flex  sm:flex-col  items-center justify-around hover:border-2 cursor-pointer">
+      <div className="restaurant-img sm:w-full  w-1/4 h-24 flex items-center">
+        <img
+          className="rounded-xl sm:rounded-none "
+          src={IMG_CDN_URL + cloudinaryImageId}
+          alt={name + "restaurant"}
+        />
       </div>
-      <div className="order-b-2 ratings mt-4 mb-2  flex flex-row items-center justify-around text-sm">
-        <div>{avgRating}⭐</div>
-        <div className="div">•</div>
-        <div>{slaString}</div>
-        <div className="div">•</div>
-        <div>{costForTwoString}</div>
+      <div className="card-details  sm:w-full">
+        <h1 className="font-bold my-1">{name}</h1>
+        <div className="cuisines  text-xs flex flex-wrap">
+          <p>{cuisines.join(", ")}</p>
+        </div>
+        <div className=" mt-4 mb-2  flex flex-row items-center justify-around text-xs">
+          <div>{avgRating} ⭐</div>
+          <div className="div">•</div>
+          <div>{slaString}</div>
+          <div className="div">•</div>
+          <div>{costForTwoString}</div>
+        </div>
+        <div className="border-t-2"></div>
       </div>
-      <div className="border-t-2"></div>
     </div>
   );
 }

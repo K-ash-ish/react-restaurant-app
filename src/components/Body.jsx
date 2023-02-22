@@ -16,9 +16,9 @@ const Body = () => {
     setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
   };
   return allRestaurants.length > 0 ? (
-    <div className="wrapper my-0 mx-auto w-5/6 border-2  flex flex-col  h-1/2">
+    <div className="wrapper sm:my-0 sm:mx-auto w-full  border-2  flex flex-col  h-1/2">
       <h1>Order From</h1>
-      <div className="restaurant-container  flex flex-row justify-center flex-wrap ">
+      <div className="restaurant-container my-0 mx-auto  flex flex-col  sm:flex-row sm:w-5/6 w-full  sm:flex-wrap items-center justify-center ">
         {allRestaurants.map((restaurant) => {
           return <ReastaurantCard key={uuidv4()} {...restaurant.data} />;
         })}
