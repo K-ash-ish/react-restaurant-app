@@ -9,7 +9,7 @@ function ReastaurantCard(props) {
     slaString,
   } = props;
   return (
-    <div className="card w-full border-2  p-4 m-3  flex  sm:flex-col  items-center justify-around hover:border-2 cursor-pointer">
+    <div className="card w-full  p-4 m-3  flex  sm:flex-col  items-center justify-around hover:border-2 cursor-pointer">
       <div className=" restaurant-img sm:w-full  w-1/4 h-24 flex items-center">
         <img
           className="rounded-xl sm:rounded-none "
@@ -29,7 +29,6 @@ function ReastaurantCard(props) {
           <div className="div">•</div>
           <div>{costForTwoString}</div>
         </div>
-        <div className="border-t-2"></div>
       </div>
     </div>
   );
