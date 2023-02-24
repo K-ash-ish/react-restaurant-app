@@ -32,6 +32,7 @@ function Login() {
               className="w-60 h-14  border-2  focus:outline-red-500 px-2 text-sm"
               id="phone-number"
               placeholder="Phone Number"
+              required
             />
           </label>
           <div className="flex flex-col justify-start items-baseline w-full">
