@@ -6,6 +6,10 @@
   box-sizing: border-box;
   margin: 0 auto;
 }
+.nav-item:hover {
+  color: gray;
+  cursor: pointer;
+}
 .card {
   width: 250px;
   min-height: 300px;
