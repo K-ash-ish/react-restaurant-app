@@ -29,7 +29,7 @@ function Login() {
           <label htmlFor="phone-number ">
             <input
               type="text"
-              className="w-60 h-14  border-2  focus:outline-red-500 px-2 text-sm"
+              className="w-60 h-14  border-2  focus:outline-gray-300 px-2 text-sm"
               id="phone-number"
               placeholder="Phone Number"
               required
