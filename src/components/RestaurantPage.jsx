@@ -6,24 +6,38 @@ import { IMG_CDN_URL } from "../constant";
 
 function FilteredMenu({ toFilter, category }) {
   return (
-    <div>
-      <h1>{category}</h1>
+    <div className=" flex md:flex-col">
+      <h1 className="font-medium text-xl underline decoration-red-500 underline-offset-4">
+        {category}
+      </h1>
       {toFilter.map((item) => {
         return (
-          <div key={uuidv4()} className="">
-            <div className="left">
-              <h2>{item.name}</h2>
-              <p>{item.price.toString().slice(0, -2)}</p>
-              {item.description ? <p>{item.description}</p> : null}
+          <div
+            key={uuidv4()}
+            className=" flex md:justify-between  my-4 border-b-2 pb-3"
+          >
+            <div className=" w-2/3 flex md:flex-col md:justify-center">
+              <h2 className="font-medium text-lg">{item.name}</h2>
+              <p className="my-2">₹{item.price.toString().slice(0, -2)}</p>
+              {item.description ? (
+                <p className="font-thin text-xs my-2 w-3/5">
+                  {item.description}
+                </p>
+              ) : null}
             </div>
-            <div className="right">
+            <div className=" px-2 flex  md:justify-between md:items-center w-1/2  h-36">
               {item.cloudinaryImageId ? (
                 <img
                   src={IMG_CDN_URL + item.cloudinaryImageId}
                   alt={item.mame}
+                  className="w-40 rounded-lg"
                 />
-              ) : null}
-              <button>Add</button>
+              ) : (
+                <div></div>
+              )}
+              <button className=" border-2 h-10 w-20 hover:shadow-md">
+                Add
+              </button>
             </div>
           </div>
         );
@@ -97,7 +111,7 @@ function RestaurantPage() {
           </div>
         </div>
       </div>
-      <div className="flex md:justify-around md:w-9/12 border-green-400 border-2">
+      <div className="flex md:justify-around md:w-9/12  border-2">
         <ul className="border-r-2 pr-4 md:w-1/5 py-2 h-1/2 my-2 flex md:flex-col text-right">
           {categories.map((category) => {
             return (
@@ -110,7 +124,7 @@ function RestaurantPage() {
             );
           })}
         </ul>
-        <div className="border-2 border-red-500 my-2 w-1/2">
+        <div className=" my-2 w-4/6 ">
           {categories.map((category) => {
             return (
               <FilteredMenu
