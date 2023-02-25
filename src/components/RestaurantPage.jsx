@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import "../index.css";
 import { IMG_CDN_URL } from "../constant";
+
 function FilteredMenu({ toFilter, category }) {
   return (
     <div>
@@ -55,32 +57,43 @@ function RestaurantPage() {
     });
   }
   return restaurant ? (
-    <div>
-      <div className="border-2">
-        <div>
+    <div className=" capitalize w-full">
+      <div className=" text-white restaurant-banner md:w-full md:flex  md:items-center border-2 ">
+        <div className=" md:ml-48">
           <img
+            className="w-72"
             src={IMG_CDN_URL + restaurant?.cloudinaryImageId}
             alt="restaurant-img"
           />
         </div>
-        <div>
-          <h1>{restaurant?.name}</h1>
-          <p>{restaurant?.cuisines?.join(", ")}</p>
-        </div>
-        <div className=" mt-4 mb-2  flex flex-row items-center justify-around text-xs">
-          <div>
-            <p>{restaurant?.avgRating} ⭐</p>
-            <p>{restaurant?.totalRatingsString}</p>
+        <div className="md:ml-24 md:h-52 md:w-72 flex md:flex-col md:justify-center">
+          <div className="md:border-b-2 md:pb-2 md:px-2">
+            <h1 className="text-2xl">{restaurant?.name}</h1>
+            <p className="font-thin text-lg">
+              {restaurant?.cuisines?.join(", ")}
+            </p>
           </div>
-          <div className="div">•</div>
-          <div>
-            <p>{restaurant?.sla?.slaString}</p>
-            <p>Delivery time</p>
-          </div>
-          <div className="div">•</div>
-          <div>
-            <p>{restaurant?.costForTwo.toString().slice(0, -2)}</p>
-            <p>{restaurant?.costForTwoMsg}</p>
+          <div className=" mt-4 mb-2  flex flex-row items-center justify-around text-xs">
+            <div>
+              <p className="font-semibold text-lg my-1">
+                {restaurant?.avgRating} ⭐
+              </p>
+              <p>{restaurant?.totalRatingsString}</p>
+            </div>
+            <div className="text-xl">•</div>
+            <div>
+              <p className="font-semibold text-lg my-1">
+                {restaurant?.sla?.slaString}
+              </p>
+              <p>Delivery time</p>
+            </div>
+            <div className="text-xl">•</div>
+            <div>
+              <p className="font-semibold text-lg my-1">
+                ₹{restaurant?.costForTwo.toString().slice(0, -2)}
+              </p>
+              <p>cost for two</p>
+            </div>
           </div>
         </div>
       </div>

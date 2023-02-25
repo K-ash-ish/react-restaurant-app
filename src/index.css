@@ -29,6 +29,11 @@
 .right-container {
   height: 350px;
 }
+.restaurant-banner {
+  min-height: 300px;
+  background-color: #171a29;
+}
+
 @media (max-width: 640px) {
   .card {
     width: 90%;
