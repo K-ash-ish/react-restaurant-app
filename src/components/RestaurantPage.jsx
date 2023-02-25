@@ -10,7 +10,7 @@ function FilteredMenu({ toFilter, category }) {
       <h1>{category}</h1>
       {toFilter.map((item) => {
         return (
-          <div key={uuidv4()} className="border-2 border-red-400">
+          <div key={uuidv4()} className="">
             <div className="left">
               <h2>{item.name}</h2>
               <p>{item.price.toString().slice(0, -2)}</p>
@@ -57,7 +57,7 @@ function RestaurantPage() {
     });
   }
   return restaurant ? (
-    <div className=" capitalize w-full">
+    <div className=" capitalize w-full md: flex md:flex-col items-center">
       <div className=" text-white restaurant-banner md:w-full md:flex  md:items-center border-2 ">
         <div className=" md:ml-48">
           <img
@@ -97,13 +97,20 @@ function RestaurantPage() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center">
-        <ul className="border-2">
+      <div className="flex md:justify-around md:w-9/12 border-green-400 border-2">
+        <ul className="border-r-2 pr-4 md:w-1/5 py-2 h-1/2 my-2 flex md:flex-col text-right">
           {categories.map((category) => {
-            return <li key={uuidv4()}>{category}</li>;
+            return (
+              <li
+                className="px-3 category text-sm  font-medium cursor-pointer my-3 "
+                key={uuidv4()}
+              >
+                {category}
+              </li>
+            );
           })}
         </ul>
-        <div className="border-2 border-red-400 w-1/2">
+        <div className="border-2 border-red-500 my-2 w-1/2">
           {categories.map((category) => {
             return (
               <FilteredMenu
