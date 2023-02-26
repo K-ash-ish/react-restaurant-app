@@ -7,18 +7,21 @@ import { IMG_CDN_URL } from "../constant";
 function FilteredMenu({ toFilter, category }) {
   return (
     <div className=" flex md:flex-col">
-      <h1 className="font-medium text-xl underline decoration-red-500 underline-offset-4">
+      <h1 className="md:font-medium md:text-xl md:underline md:decoration-red-500 md:underline-offset-4">
         {category}
       </h1>
       {toFilter.map((item) => {
         return (
           <div
             key={uuidv4()}
-            className=" flex md:justify-between  my-4 border-b-2 pb-3"
+            className=" flex md:justify-between  md:my-4 md:border-b-2 md:pb-3"
           >
             <div className=" w-2/3 flex md:flex-col md:justify-center">
               <h2 className="font-medium text-lg">{item.name}</h2>
-              <p className="my-2">₹{item.price.toString().slice(0, -2)}</p>
+              <p className="my-2">
+                <span className="text-green-500">₹</span>
+                {item.price.toString().slice(0, -2)}
+              </p>
               {item.description ? (
                 <p className="font-thin text-xs my-2 w-3/5">
                   {item.description}
@@ -29,7 +32,7 @@ function FilteredMenu({ toFilter, category }) {
               {item.cloudinaryImageId ? (
                 <img
                   src={IMG_CDN_URL + item.cloudinaryImageId}
-                  alt={item.mame}
+                  alt={item.name}
                   className="w-40 rounded-lg"
                 />
               ) : (
@@ -71,40 +74,41 @@ function RestaurantPage() {
     });
   }
   return restaurant ? (
-    <div className=" capitalize w-full md: flex md:flex-col items-center">
-      <div className=" text-white restaurant-banner md:w-full md:flex  md:items-center border-2 ">
-        <div className=" md:ml-48">
+    <div className=" capitalize w-full md: flex flex-col  md:items-center">
+      <div className=" text-white restaurant-banner w-full flex md:justify-start justify-center items-center ">
+        <div className=" md:ml-48 hidden md:block">
           <img
             className="w-72"
             src={IMG_CDN_URL + restaurant?.cloudinaryImageId}
             alt="restaurant-img"
           />
         </div>
-        <div className="md:ml-24 md:h-52 md:w-72 flex md:flex-col md:justify-center">
-          <div className="md:border-b-2 md:pb-2 md:px-2">
+        <div className="md:ml-24 md:h-52 md:w-72 w-full flex justify-around items-center  md:flex-col md:justify-center ">
+          <div className="md:border-b-2  md:border-red-500 md:pb-2 md:px-2">
             <h1 className="text-2xl">{restaurant?.name}</h1>
             <p className="font-thin text-lg">
               {restaurant?.cuisines?.join(", ")}
             </p>
           </div>
           <div className=" mt-4 mb-2  flex flex-row items-center justify-around text-xs">
-            <div>
+            <div className="">
               <p className="font-semibold text-lg my-1">
                 {restaurant?.avgRating} ⭐
               </p>
               <p>{restaurant?.totalRatingsString}</p>
             </div>
-            <div className="text-xl">•</div>
-            <div>
+            <div className="hidden md:block md:text-xl">•</div>
+            <div className="hidden">
               <p className="font-semibold text-lg my-1">
                 {restaurant?.sla?.slaString}
               </p>
               <p>Delivery time</p>
             </div>
-            <div className="text-xl">•</div>
-            <div>
+            <div className="hidden md:block md:text-xl">•</div>
+            <div className="hidden">
               <p className="font-semibold text-lg my-1">
-                ₹{restaurant?.costForTwo.toString().slice(0, -2)}
+                <span className="text-green-500">₹</span>
+                {restaurant?.costForTwo.toString().slice(0, -2)}
               </p>
               <p>cost for two</p>
             </div>
@@ -112,7 +116,7 @@ function RestaurantPage() {
         </div>
       </div>
       <div className="flex md:justify-around md:w-9/12  border-2">
-        <ul className="border-r-2 pr-4 md:w-1/5 py-2 h-1/2 my-2 flex md:flex-col text-right">
+        <ul className="border-r-2 pr-4 md:w-1/5 py-2 h-1/2 my-2 flex md:flex-col text-right ">
           {categories.map((category) => {
             return (
               <li
