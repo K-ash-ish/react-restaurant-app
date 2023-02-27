@@ -5,17 +5,17 @@ import { Link } from "react-router-dom";
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   useEffect(() => {
-    getRestaurantDetails();
+    getRestaurantsDetail();
   }, []);
-  const getRestaurantDetails = async () => {
-    console.log("api call");
+  const getRestaurantsDetail = async () => {
+    // console.log("api call");
     const details = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.1768293&lng=79.97640129999999&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await details.json();
     setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
   };
-  return allRestaurants.length > 0 ? (
+  return allRestaurants?.length > 0 ? (
     <div className="wrapper sm:my-0 sm:mx-auto w-full  flex flex-col  h-1/2">
       <div className="flex md:mb-4 my-4 md:my-0 border-b-2 justify-around items-center h-16">
         <h1 className="md:text-2xl text-lg w-1/2 text-center">Order From</h1>
@@ -32,7 +32,7 @@ const Body = () => {
       <div className="my-0 mx-auto  flex flex-col  sm:flex-row sm:w-5/6 w-full  sm:flex-wrap items-center justify-center  ">
         {allRestaurants.map((restaurant) => {
           return (
-            <Link key={uuidv4()} to="/restaurant-page">
+            <Link key={uuidv4()} to={"/restaurant/" + restaurant.data.id}>
               <ReastaurantCard {...restaurant.data} />;
             </Link>
           );
