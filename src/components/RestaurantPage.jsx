@@ -6,17 +6,17 @@ import { IMG_CDN_URL } from "../constant";
 
 function FilteredMenu({ toFilter, category }) {
   return (
-    <div className=" flex md:flex-col">
-      <h1 className="md:font-medium md:text-xl md:underline md:decoration-red-500 md:underline-offset-4">
+    <div className=" flex flex-col ">
+      <h1 className="font-medium text-xl underline decoration-red-500 underline-offset-4 my-4 md:my-0">
         {category}
       </h1>
       {toFilter.map((item) => {
         return (
           <div
             key={uuidv4()}
-            className=" flex md:justify-between  md:my-4 md:border-b-2 md:pb-3"
+            className="flex md:justify-between  md:my-4 border-b-2 md:pb-3"
           >
-            <div className=" w-2/3 flex md:flex-col md:justify-center">
+            <div className=" w-2/3 flex flex-col  justify-center">
               <h2 className="font-medium text-lg">{item.name}</h2>
               <p className="my-2">
                 <span className="text-green-500">₹</span>
@@ -28,12 +28,12 @@ function FilteredMenu({ toFilter, category }) {
                 </p>
               ) : null}
             </div>
-            <div className=" px-2 flex  md:justify-between md:items-center w-1/2  h-36">
+            <div className=" px-2 flex justify-between items-center w-1/2  h-36">
               {item.cloudinaryImageId ? (
                 <img
                   src={IMG_CDN_URL + item.cloudinaryImageId}
                   alt={item.name}
-                  className="w-40 rounded-lg"
+                  className="md:w-32 w-28 rounded-lg"
                 />
               ) : (
                 <div></div>
@@ -54,12 +54,12 @@ function RestaurantPage() {
   const [menu, setMenu] = useState();
   useEffect(() => {
     const getRestaurantDetail = async () => {
-      console.log("api call");
       const data = await fetch(
         "https://www.swiggy.com/dapi/menu/v4/full?lat=23.1768293&lng=79.97640129999999&menuId=" +
           id
       );
       const json = await data.json();
+      console.log(json);
       setRestaurant(json.data);
     };
     getRestaurantDetail();
@@ -74,7 +74,7 @@ function RestaurantPage() {
     });
   }
   return restaurant ? (
-    <div className=" capitalize w-full md: flex flex-col  md:items-center">
+    <div className=" mt-4 capitalize w-full md: flex flex-col  md:items-center">
       <div className=" text-white restaurant-banner w-full flex md:justify-start justify-center items-center ">
         <div className=" md:ml-48 hidden md:block">
           <img
@@ -97,15 +97,15 @@ function RestaurantPage() {
               </p>
               <p>{restaurant?.totalRatingsString}</p>
             </div>
-            <div className="hidden md:block md:text-xl">•</div>
-            <div className="hidden">
+            <div className="hidden md:block md:text-xl px-2">•</div>
+            <div className="hidden md:flex flex-col">
               <p className="font-semibold text-lg my-1">
                 {restaurant?.sla?.slaString}
               </p>
               <p>Delivery time</p>
             </div>
-            <div className="hidden md:block md:text-xl">•</div>
-            <div className="hidden">
+            <div className="hidden md:block md:text-xl px-2">•</div>
+            <div className="hidden md:flex flex-col">
               <p className="font-semibold text-lg my-1">
                 <span className="text-green-500">₹</span>
                 {restaurant?.costForTwo.toString().slice(0, -2)}
@@ -115,8 +115,8 @@ function RestaurantPage() {
           </div>
         </div>
       </div>
-      <div className="flex md:justify-around md:w-9/12  border-2">
-        <ul className="border-r-2 pr-4 md:w-1/5 py-2 h-1/2 my-2 flex md:flex-col text-right ">
+      <div className="flex md:flex-row flex-col md:justify-around md:w-11/12 ">
+        <ul className="md:border-r-2  border-b-2  pr-4 md:w-1/5 py-2 h-1/2 my-2 flex flex-row  items-center md:flex-col md:text-right ">
           {categories.map((category) => {
             return (
               <li
@@ -128,7 +128,7 @@ function RestaurantPage() {
             );
           })}
         </ul>
-        <div className=" my-2 w-4/6 ">
+        <div className=" my-2  w-full  flex flex-col">
           {categories.map((category) => {
             return (
               <FilteredMenu
