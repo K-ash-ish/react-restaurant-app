@@ -28,7 +28,7 @@ function FilteredMenu({ toFilter, category }) {
                 </p>
               ) : null}
             </div>
-            <div className=" px-2 flex justify-between items-center w-1/2  h-36">
+            <div className=" px-2 flex md:flex-row flex-col justify-around  md:justify-around items-center w-1/3  h-36">
               {item.cloudinaryImageId ? (
                 <img
                   src={IMG_CDN_URL + item.cloudinaryImageId}
@@ -38,7 +38,7 @@ function FilteredMenu({ toFilter, category }) {
               ) : (
                 <div></div>
               )}
-              <button className=" border-2 h-10 w-20 hover:shadow-md">
+              <button className="border-2 mx-2 h-10 w-1/3 hover:shadow-md">
                 Add
               </button>
             </div>
@@ -51,7 +51,7 @@ function FilteredMenu({ toFilter, category }) {
 function RestaurantPage() {
   const { id } = useParams();
   const [restaurant, setRestaurant] = useState(null);
-  const [menu, setMenu] = useState();
+  // const [menu, setMenu] = useState();
   useEffect(() => {
     const getRestaurantDetail = async () => {
       const data = await fetch(
@@ -115,7 +115,7 @@ function RestaurantPage() {
           </div>
         </div>
       </div>
-      <div className="flex md:flex-row flex-col md:justify-around md:w-11/12 ">
+      <div className="flex md:flex-row flex-col border-red-400  border-2 md:justify-around md:w-11/12 ">
         <ul className="md:border-r-2  border-b-2  pr-4 md:w-1/5 py-2 h-1/2 my-2 flex flex-row  items-center md:flex-col md:text-right ">
           {categories.map((category) => {
             return (
@@ -128,7 +128,7 @@ function RestaurantPage() {
             );
           })}
         </ul>
-        <div className=" my-2  w-full  flex flex-col">
+        <div className=" my-2  w-full md:w-11/12 border-2 border-blue-200 md:mx-2  flex flex-col">
           {categories.map((category) => {
             return (
               <FilteredMenu
