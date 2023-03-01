@@ -13,7 +13,7 @@ import Login from "./components/Login";
 import RestaurantPage from "./components/RestaurantPage";
 function AppLayout() {
   return (
-    <div className=" flex flex-col justify-between min-h-screen md:min-h-screen">
+    <div className=" flex flex-col justify-between items-center  min-h-screen md:min-h-screen">
       <Header />
       <Outlet />
       <Footer />
@@ -47,7 +47,7 @@ const App = () => {
         <Route path="/" element=<Body /> />
         <Route path="login" element=<Login /> />
         <Route path="cart" element=<Cart /> />
-        <Route path="restaurant-page" element=<RestaurantPage /> />
+        <Route path="restaurant/:id" element=<RestaurantPage /> />
       </Route>
     )
   );
