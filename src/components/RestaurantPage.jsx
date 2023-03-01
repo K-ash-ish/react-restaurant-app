@@ -115,8 +115,8 @@ function RestaurantPage() {
           </div>
         </div>
       </div>
-      <div className="flex md:flex-row flex-col border-red-400  border-2 md:justify-around md:w-11/12 ">
-        <ul className="md:border-r-2  border-b-2  pr-4 md:w-1/5 py-2 h-1/2 my-2 flex flex-row  items-center md:flex-col md:text-right ">
+      <div className="flex md:flex-row flex-col  md:justify-around md:w-11/12 ">
+        <ul className="md:border-r-2  border-b-2 md:border-b-0  pr-4 md:w-1/5 py-2 h-1/2 my-2 flex flex-row  items-center md:flex-col md:items-end ">
           {categories.map((category) => {
             return (
               <li
@@ -128,7 +128,7 @@ function RestaurantPage() {
             );
           })}
         </ul>
-        <div className=" my-2  w-full md:w-11/12 border-2 border-blue-200 md:mx-2  flex flex-col">
+        <div className=" my-2  w-full md:w-9/12  md:mx-2  flex flex-col">
           {categories.map((category) => {
             return (
               <FilteredMenu
