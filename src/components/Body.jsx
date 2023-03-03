@@ -23,7 +23,9 @@ const Body = () => {
   //     </h1>
   //   );
   // }
-  return allRestaurants.length > 0 ? (
+  return allRestaurants.length === 0 ? (
+    <p className="text-3xl">Loading</p>
+  ) : (
     <div className="wrapper sm:my-0 sm:mx-auto w-full  flex flex-col  h-1/2">
       <div className="flex md:mb-4 my-4 md:my-0 border-b-2 justify-around items-center h-16">
         <h1 className="md:text-2xl text-lg w-1/2 text-center">Order From</h1>
@@ -47,8 +49,6 @@ const Body = () => {
         })}
       </div>
     </div>
-  ) : (
-    <p className="text-3xl">Loading</p>
   );
 };
 export default Body;
