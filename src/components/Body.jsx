@@ -5,27 +5,25 @@ import { Link } from "react-router-dom";
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   useEffect(() => {
-    const getRestaurantsDetail = async () => {
-      console.log("api call");
-      const details = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.1768293&lng=79.97640129999999&page_type=DESKTOP_WEB_LISTING"
-      );
-      const json = await details.json();
-      setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-    };
     getRestaurantsDetail();
   }, []);
-  // if (!allRestaurants) {
-  //   return (
-  //     <h1>
-  //       No restaurant servicable Check in some other time Or change your
-  //       location
-  //     </h1>
-  //   );
-  // }
-  return allRestaurants.length === 0 ? (
-    <p className="text-3xl">Loading</p>
-  ) : (
+  const getRestaurantsDetail = async () => {
+    console.log("api call");
+    const details = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.1768293&lng=79.97640129999999&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await details.json();
+    setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+  };
+  if (!allRestaurants) {
+    return (
+      <h1>
+        No restaurant servicable Check in some other time Or change your
+        location
+      </h1>
+    );
+  }
+  return allRestaurants.length > 0 ? (
     <div className="wrapper sm:my-0 sm:mx-auto w-full  flex flex-col  h-1/2">
       <div className="flex md:mb-4 my-4 md:my-0 border-b-2 justify-around items-center h-16">
         <h1 className="md:text-2xl text-lg w-1/2 text-center">Order From</h1>
@@ -49,6 +47,8 @@ const Body = () => {
         })}
       </div>
     </div>
+  ) : (
+    <p className="text-3xl">Loading</p>
   );
 };
 export default Body;
