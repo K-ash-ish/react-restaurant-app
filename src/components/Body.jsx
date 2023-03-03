@@ -5,16 +5,16 @@ import { Link } from "react-router-dom";
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   useEffect(() => {
+    const getRestaurantsDetail = async () => {
+      console.log("api call");
+      const details = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.1768293&lng=79.97640129999999&page_type=DESKTOP_WEB_LISTING"
+      );
+      const json = await details.json();
+      setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+    };
     getRestaurantsDetail();
   }, []);
-  const getRestaurantsDetail = async () => {
-    console.log("api call");
-    const details = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.1768293&lng=79.97640129999999&page_type=DESKTOP_WEB_LISTING"
-    );
-    const json = await details.json();
-    setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-  };
   if (!allRestaurants) {
     return (
       <h1>
