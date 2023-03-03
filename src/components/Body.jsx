@@ -15,14 +15,14 @@ const Body = () => {
     };
     getRestaurantsDetail();
   }, []);
-  if (!allRestaurants) {
-    return (
-      <h1>
-        No restaurant servicable Check in some other time Or change your
-        location
-      </h1>
-    );
-  }
+  // if (!allRestaurants) {
+  //   return (
+  //     <h1>
+  //       No restaurant servicable Check in some other time Or change your
+  //       location
+  //     </h1>
+  //   );
+  // }
   return allRestaurants.length > 0 ? (
     <div className="wrapper sm:my-0 sm:mx-auto w-full  flex flex-col  h-1/2">
       <div className="flex md:mb-4 my-4 md:my-0 border-b-2 justify-around items-center h-16">
