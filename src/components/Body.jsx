@@ -8,10 +8,10 @@ const Body = () => {
     getRestaurantsDetail();
   }, []);
   const getRestaurantsDetail = async () => {
-    // const localApi = await fetch(
-    //   "https://eat-treat-server.onrender.com/api/restaurants"
-    // );
-    const localApi = await fetch("http://localhost:4000/api/restaurants");
+    const localApi = await fetch(
+      "https://eat-treat-server.onrender.com/api/restaurants"
+    );
+    // const localApi = await fetch("http://localhost:4000/api/restaurants");
     const localJson = await localApi.json();
     setAllRestaurants(localJson?.data?.cards[2]?.data?.data?.cards);
     // setAllRestaurants(restaurantList);
