@@ -14,7 +14,7 @@ function Item() {
 }
 function Cart() {
   return (
-    <section className="border-2 border-yellow-400 h-fit my-12 w-11/12 cart capitalize min-h-96 md:w-1/4">
+    <section className="h-fit my-12 w-11/12 cart capitalize min-h-96 md:w-1/4">
       <div className=" pb-3 flex   ">
         <button className="pr-4 pl-1 text-2xl">
           <FontAwesomeIcon icon={faArrowLeftLong} />

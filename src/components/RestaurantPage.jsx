@@ -39,7 +39,7 @@ function FilteredMenu({ toFilter, category }) {
               ) : (
                 <div></div>
               )}
-              <button className="y-0 mx-auto border-2 mx-2 h-10 w-1/3 px-2 hover:shadow-md">
+              <button className="my-0 mx-auto border-2  h-10  px-4 hover:shadow-md">
                 Add
               </button>
             </div>
@@ -76,7 +76,7 @@ function RestaurantPage() {
     });
   }
   return restaurant ? (
-    <div className="border-2 border-blue-500  capitalize w-full md: flex flex-col  items-center">
+    <div className=" capitalize w-full md: flex flex-col  items-center">
       <div className=" my-5 text-white restaurant-banner w-full flex md:justify-start justify-center items-center ">
         <div className=" md:ml-48 hidden md:block">
           <img
@@ -117,8 +117,8 @@ function RestaurantPage() {
           </div>
         </div>
       </div>
-      <div className="border-2 border-red-500 w-full flex md:flex-row flex-col  md:justify-evenly">
-        <ul className="md:border-r-2 border-2 border-yellow-500 border-b-2 md:border-b-0  pr-4 md:w-1/5 py-2 h-1/2 my-2 flex flex-row  items-center md:flex-col md:items-end ">
+      <div className=" w-full flex md:flex-row flex-col  md:justify-evenly">
+        <ul className="md:border-r-2  border-b-2 md:border-b-0  pr-4 md:w-1/5 py-2 h-1/2 my-2 flex flex-row  items-center md:flex-col md:items-end ">
           {categories.map((category) => {
             return (
               <li
@@ -130,7 +130,7 @@ function RestaurantPage() {
             );
           })}
         </ul>
-        <div className=" my-2 px-4 border-2 border-yellow-500 w-full md:w-5/12  md:mx-2  flex flex-col">
+        <div className=" my-2 px-4  w-full md:w-5/12  md:mx-2  flex flex-col">
           {categories.map((category) => {
             return (
               <FilteredMenu
