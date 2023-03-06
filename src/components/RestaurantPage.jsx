@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import "../index.css";
 import { IMG_CDN_URL } from "../constant";
+import Cart from "./Cart";
 
 function FilteredMenu({ toFilter, category }) {
   return (
@@ -28,17 +29,17 @@ function FilteredMenu({ toFilter, category }) {
                 </p>
               ) : null}
             </div>
-            <div className=" px-2 flex md:flex-row flex-col justify-around  md:justify-around items-center w-1/3  h-36">
+            <div className=" px-2 flex md:flex-row flex-wrap flex-col justify-around  md:justify-between  items-center w-1/3  h-36">
               {item.cloudinaryImageId ? (
                 <img
                   src={IMG_CDN_URL + item.cloudinaryImageId}
                   alt={item.name}
-                  className="md:w-32 w-28 rounded-lg"
+                  className="md:w-32 w-28 rounded-lg y-0 mx-auto"
                 />
               ) : (
                 <div></div>
               )}
-              <button className="border-2 mx-2 h-10 w-1/3 hover:shadow-md">
+              <button className="y-0 mx-auto border-2 mx-2 h-10 w-1/3 px-2 hover:shadow-md">
                 Add
               </button>
             </div>
@@ -54,8 +55,11 @@ function RestaurantPage() {
   // const [menu, setMenu] = useState();
   useEffect(() => {
     const getRestaurantDetail = async () => {
+      // const data = await fetch(
+      //   "https://eat-treat-server.onrender.com/api/restaurant/menu?id=" + id
+      // );
       const data = await fetch(
-        "https://eat-treat-server.onrender.com/api/restaurant/menu?id=" + id
+        "http://localhost:4000/api/restaurant/menu?id=" + id
       );
       const json = await data.json();
       setRestaurant(json.data);
@@ -72,8 +76,8 @@ function RestaurantPage() {
     });
   }
   return restaurant ? (
-    <div className=" mt-4 capitalize w-full md: flex flex-col  md:items-center">
-      <div className=" text-white restaurant-banner w-full flex md:justify-start justify-center items-center ">
+    <div className="border-2 border-blue-500  capitalize w-full md: flex flex-col  items-center">
+      <div className=" my-5 text-white restaurant-banner w-full flex md:justify-start justify-center items-center ">
         <div className=" md:ml-48 hidden md:block">
           <img
             className="w-72"
@@ -113,8 +117,8 @@ function RestaurantPage() {
           </div>
         </div>
       </div>
-      <div className="flex md:flex-row flex-col  md:justify-around md:w-11/12 ">
-        <ul className="md:border-r-2  border-b-2 md:border-b-0  pr-4 md:w-1/5 py-2 h-1/2 my-2 flex flex-row  items-center md:flex-col md:items-end ">
+      <div className="border-2 border-red-500 w-full flex md:flex-row flex-col  md:justify-evenly">
+        <ul className="md:border-r-2 border-2 border-yellow-500 border-b-2 md:border-b-0  pr-4 md:w-1/5 py-2 h-1/2 my-2 flex flex-row  items-center md:flex-col md:items-end ">
           {categories.map((category) => {
             return (
               <li
@@ -126,7 +130,7 @@ function RestaurantPage() {
             );
           })}
         </ul>
-        <div className=" my-2  w-full md:w-9/12  md:mx-2  flex flex-col">
+        <div className=" my-2 px-4 border-2 border-yellow-500 w-full md:w-5/12  md:mx-2  flex flex-col">
           {categories.map((category) => {
             return (
               <FilteredMenu
@@ -141,6 +145,7 @@ function RestaurantPage() {
             return <li key={item.id}>{item.name}</li>;
           })} */}
         </div>
+        <Cart />
       </div>
     </div>
   ) : (
