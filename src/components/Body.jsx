@@ -2,7 +2,6 @@ import ReastaurantCard from "./RestaurantCard";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import restaurantList from "../constant";
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   useEffect(() => {
