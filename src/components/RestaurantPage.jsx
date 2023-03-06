@@ -55,11 +55,9 @@ function RestaurantPage() {
   useEffect(() => {
     const getRestaurantDetail = async () => {
       const data = await fetch(
-        "https://www.swiggy.com/dapi/menu/v4/full?lat=23.1768293&lng=79.97640129999999&menuId=" +
-          id
+        "https://eat-treat-server.onrender.com/api/restaurant/menu?id=" + id
       );
       const json = await data.json();
-      console.log(json);
       setRestaurant(json.data);
     };
     getRestaurantDetail();
