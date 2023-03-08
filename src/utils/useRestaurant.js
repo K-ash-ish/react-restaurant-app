@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FETCH_MENU } from "../constant";
 function useRestaurant(id) {
   const [restaurant, setRestaurant] = useState(null);
   // const [menu, setMenu] = useState();
@@ -6,8 +7,7 @@ function useRestaurant(id) {
     const getRestaurantDetail = async () => {
       const data = await fetch(
         // "https://eat-treat-server.onrender.com/api/restaurant/menu?id="
-        "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=23.2599333&lng=77.412615&restaurantId=" +
-          id
+        FETCH_MENU + id
       );
       // const data = await fetch(
       //   "http://localhost:4000/api/restaurant/menu?id=" + id

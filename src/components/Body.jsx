@@ -2,14 +2,17 @@ import ReastaurantCard from "./RestaurantCard";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { FETCH_RESTAURANT } from "../constant";
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   useEffect(() => {
     getRestaurantsDetail();
   }, []);
   const getRestaurantsDetail = async () => {
+    //change to render url
     const localApi = await fetch(
-      "https://eat-treat-server.onrender.com/api/restaurants"
+      // "https://eat-treat-server.onrender.com/api/restaurants"
+      FETCH_RESTAURANT
     );
     // const localApi = await fetch("http://localhost:4000/api/restaurants");
     const localJson = await localApi.json();

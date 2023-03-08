@@ -5258,6 +5258,10 @@ export const restaurantPage = {
   deviceId: "338f44fc-f423-744e-9266-5076d746e355",
   csrfToken: "uNu69JVdj5lz-u-7kO9c4YfATRHYVYgTaFyIh8-o",
 };
+export const FETCH_RESTAURANT =
+  "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.2599333&lng=77.412615&page_type=DESKTOP_WEB_LISTING";
+export const FETCH_MENU =
+  "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=23.2599333&lng=77.412615&restaurantId=";
 export const IMG_CDN_URL =
   "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/";
 export default restaurantList;
