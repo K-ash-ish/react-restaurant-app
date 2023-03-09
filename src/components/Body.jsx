@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FETCH_RESTAURANT } from "../constant";
+import useOnline from "../utils/useOnline";
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   useEffect(() => {
@@ -10,15 +11,14 @@ const Body = () => {
   }, []);
   const getRestaurantsDetail = async () => {
     //change to render url
-    const localApi = await fetch(
-      // "https://eat-treat-server.onrender.com/api/restaurants"
-      FETCH_RESTAURANT
-    );
-    // const localApi = await fetch("http://localhost:4000/api/restaurants");
+    const localApi = await fetch(FETCH_RESTAURANT);
     const localJson = await localApi.json();
     setAllRestaurants(localJson?.data?.cards[2]?.data?.data?.cards);
-    // setAllRestaurants(restaurantList);
   };
+  const isOnline = useOnline();
+  if (!isOnline) {
+    return <h1>Please Check Your NetworkBo</h1>;
+  }
   if (!allRestaurants) {
     return (
       <h1>
