@@ -52,9 +52,9 @@ function Cart() {
             <p className="py-1 px-1">Tax</p>
           </div>
           <div className="  text-center w-16 font-thin">
-            <p className="py-1 px-1">₹ {itemTotal} </p>
-            <p className="py-1 px-1">₹ 19 </p>
-            <p className="py-1 px-1">₹ 20 </p>
+            <p className="py-1 px-1">₹ {itemTotal > 0 ? itemTotal : null} </p>
+            <p className="py-1 px-1">₹ {itemTotal > 0 ? 19 : null} </p>
+            <p className="py-1 px-1">₹ {itemTotal > 0 ? 20 : null} </p>
           </div>
         </div>
         <div className="flex justify-between items-center my-4 border-green-500 px-2 border-t-2 border-b-2">
