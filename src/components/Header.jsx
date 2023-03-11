@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 
 function Header() {
   const cartItems = useSelector((state) => state.cart.cartItems);
-  console.log(cartItems.length);
   return (
     <nav className="flex flex-col md:flex-row md:justify-around w-full items-center justify-around my-2 py-1 md:border-b-2 h-20">
       {" "}

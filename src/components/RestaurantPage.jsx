@@ -43,7 +43,6 @@ function FilteredMenu({ toFilter, category, handleClick }) {
               )}
               <button
                 onClick={(e) => {
-                  console.log(item.name);
                   const dishName = item.name;
                   const dishPrice = item.price.toString().slice(0, -2);
                   handleClick({ dishName, dishPrice });
@@ -65,9 +64,7 @@ function RestaurantPage() {
   const categories = ["Recommended"];
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart);
-  console.log(cartItems);
   function handleClick(item) {
-    console.log("added items to cart");
     dispatch(addItems(item));
   }
   if (restaurant) {

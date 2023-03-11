@@ -1,9 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-function Item() {
+import { useSelector } from "react-redux";
+
+import { v4 as uuidv4 } from "uuid";
+function Item(props) {
+  const { itemName } = props;
   return (
     <div className="flex justify-between items- mb-2 px-2">
-      <p className="px-2 capitalize">itemname</p>
+      <p className="px-2 capitalize">{itemName}</p>
       <div className="px-2 mr-3 w-24 flex add-remove border-2 items-center justify-around">
         <button className="text-red-500 text-3xl">-</button>
         <p className="text-green-500 font-bold">1</p>
@@ -13,6 +17,13 @@ function Item() {
   );
 }
 function Cart() {
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  let itemTotal = 0;
+  if (cartItems.length > 0) {
+    itemTotal = cartItems.reduce((total, item) => {
+      return total + parseInt(item.dishPrice);
+    }, 0);
+  }
   return (
     <section className="h-fit my-12 w-11/12 cart capitalize min-h-96 md:w-1/4">
       <div className=" pb-3 flex   ">
@@ -23,12 +34,14 @@ function Cart() {
           <p className="font-medium">Restaurant Name</p>
           <div className="flex font-light justify-evenly">
             {/* check for item quantity for item / items */}
-            <p>{}items</p>|<p>ETA</p>
+            <p>{cartItems.length} items</p>|<p>ETA</p>
           </div>
         </div>
       </div>
       <div className=" min-h-20  flex flex-col  ">
-        <Item />
+        {cartItems.map((item) => {
+          return <Item key={uuidv4()} itemName={item.dishName} />;
+        })}
       </div>
       <div className="bill-details flex flex-col  my-4 mx-2 border-t-2">
         <h1 className="font-bold px-1 py-1">Bill Details</h1>
@@ -39,14 +52,16 @@ function Cart() {
             <p className="py-1 px-1">Tax</p>
           </div>
           <div className="  text-center w-16 font-thin">
-            <p className="py-1 px-1">₹</p>
-            <p className="py-1 px-1">₹</p>
-            <p className="py-1 px-1">₹</p>
+            <p className="py-1 px-1">₹ {itemTotal} </p>
+            <p className="py-1 px-1">₹ 19 </p>
+            <p className="py-1 px-1">₹ 20 </p>
           </div>
         </div>
         <div className="flex justify-between items-center my-4 border-green-500 px-2 border-t-2 border-b-2">
           <p className="font-medium py-1 px-1">To Pay</p>
-          <p className="py-1 px-1 text-center  w-16">₹</p>
+          <p className="py-1 px-1 text-center  w-16">
+            ₹ {itemTotal + 19 + 20}{" "}
+          </p>
         </div>
       </div>
       <div className="order text-xl flex items-center justify-center h-24">
