@@ -4,7 +4,7 @@ import "../index.css";
 import { IMG_CDN_URL } from "../constant";
 import Cart from "./Cart";
 import useRestaurant from "../utils/useRestaurant";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addItems } from "../features/cart/cartSlice";
 
 function FilteredMenu({ toFilter, category, handleClick }) {
@@ -63,7 +63,6 @@ function RestaurantPage() {
   const restaurant = useRestaurant(id);
   const categories = ["Recommended"];
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart);
   function handleClick(item) {
     dispatch(addItems(item));
   }
