@@ -11,13 +11,17 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import RestaurantPage from "./components/RestaurantPage";
+import { store } from "./app/store";
+import { Provider } from "react-redux";
 function AppLayout() {
   return (
-    <div className=" flex flex-col justify-between items-center  min-h-screen md:min-h-screen">
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
+    <Provider store={store}>
+      <div className=" flex flex-col justify-between items-center  min-h-screen md:min-h-screen">
+        <Header />
+        <Outlet />
+        <Footer />
+      </div>
+    </Provider>
   );
 }
 

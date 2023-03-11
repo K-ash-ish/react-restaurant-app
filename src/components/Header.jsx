@@ -1,6 +1,9 @@
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 function Header() {
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  console.log(cartItems.length);
   return (
     <nav className="flex flex-col md:flex-row md:justify-around w-full items-center justify-around my-2 py-1 md:border-b-2 h-20">
       {" "}
@@ -15,13 +18,13 @@ function Header() {
             type="text"
             className="border-2 px-2 py-1 h-8 w-5/6 text-sm focus:outline-gray-300"
           />
-          <button className="border-2 border-red-300 hover:bg-red-500 hover:text-white hover:border-none transition-colors ease-in duration-300  text-base px-3 py-1 mx-2 ">
+          <button className="border-2 border-red-300 hover:bg-red-500 hover:text-white hover:border-white transition-colors ease-in duration-300  text-base px-3 py-1 mx-2 ">
             Search
           </button>
         </div>
         <NavLink to="/cart">
           <li className="nav-item ">
-            Cart <span className="text-lg font-bold">{}</span>
+            Cart <span className="text-base font-bold">{cartItems.length}</span>
           </li>
         </NavLink>
         <NavLink to="/login">

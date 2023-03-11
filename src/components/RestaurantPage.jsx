@@ -4,8 +4,10 @@ import "../index.css";
 import { IMG_CDN_URL } from "../constant";
 import Cart from "./Cart";
 import useRestaurant from "../utils/useRestaurant";
+import { useDispatch, useSelector } from "react-redux";
+import { addItems } from "../features/cart/cartSlice";
 
-function FilteredMenu({ toFilter, category }) {
+function FilteredMenu({ toFilter, category, handleClick }) {
   return (
     <div className=" flex flex-col ">
       <h1 className="font-medium text-xl underline decoration-red-500 underline-offset-4 my-4 md:my-0">
@@ -39,7 +41,15 @@ function FilteredMenu({ toFilter, category }) {
               ) : (
                 <div></div>
               )}
-              <button className="my-0 mx-auto border-2  h-10  px-4 hover:shadow-md">
+              <button
+                onClick={(e) => {
+                  console.log(item.name);
+                  const dishName = item.name;
+                  const dishPrice = item.price.toString().slice(0, -2);
+                  handleClick({ dishName, dishPrice });
+                }}
+                className="my-0 mx-auto border-2  h-10  px-4 hover:shadow-md"
+              >
                 Add
               </button>
             </div>
@@ -51,10 +61,15 @@ function FilteredMenu({ toFilter, category }) {
 }
 function RestaurantPage() {
   const { id } = useParams();
-
   const restaurant = useRestaurant(id);
-
   const categories = ["Recommended"];
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart);
+  console.log(cartItems);
+  function handleClick(item) {
+    console.log("added items to cart");
+    dispatch(addItems(item));
+  }
   if (restaurant) {
     Object?.values(restaurant?.menu?.items)?.forEach((item) => {
       if (categories.indexOf(item.category) === -1) {
@@ -124,6 +139,7 @@ function RestaurantPage() {
                 key={uuidv4()}
                 toFilter={Object?.values(restaurant?.menu?.items)}
                 category={category}
+                handleClick={handleClick}
               />
             );
           })}
