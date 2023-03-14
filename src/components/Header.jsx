@@ -3,6 +3,10 @@ import { NavLink } from "react-router-dom";
 
 function Header() {
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const totalItems = cartItems.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.quantity,
+    0
+  );
   return (
     <nav className="flex flex-col md:flex-row md:justify-around w-full items-center justify-around my-2 py-1 md:border-b-2 h-20">
       {" "}
@@ -23,7 +27,10 @@ function Header() {
         </div>
         <NavLink to="/cart">
           <li className="nav-item ">
-            Cart <span className="text-base font-bold">{cartItems.length}</span>
+            Cart{" "}
+            <span className="underline decoration-red-500 underline-offset-2 text-base font-bold">
+              {totalItems > 0 ? totalItems : null}
+            </span>
           </li>
         </NavLink>
         <NavLink to="/login">
