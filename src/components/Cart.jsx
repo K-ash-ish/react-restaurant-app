@@ -1,17 +1,39 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { v4 as uuidv4 } from "uuid";
+import { removeItem, repeatItem, updateCart } from "../features/cart/cartSlice";
 function Item(props) {
-  const { itemName } = props;
+  const { itemName, quantity } = props;
+  const dispatch = useDispatch();
+  function repeatItems(dishName) {
+    dispatch(repeatItem(dishName));
+  }
+  function removeItems(dishName, quantity) {
+    dispatch(removeItem(dishName));
+    if (quantity === 1) {
+      // if quantity was 1 then after removing it should be 0 so updating the cart
+      dispatch(updateCart());
+    }
+  }
   return (
-    <div className="flex justify-between items- mb-2 px-2">
-      <p className="px-2 capitalize">{itemName}</p>
-      <div className="px-2 mr-3 w-24 flex add-remove border-2 items-center justify-around">
-        <button className="text-red-500 text-3xl">-</button>
-        <p className="text-green-500 font-bold">1</p>
-        <button className="text-green-500 text-2xl">+</button>
+    <div className="flex flex-row justify-evenly items-center mb-2 px-2">
+      <p className="px-2 text-base w-1/2 capitalize">{itemName}</p>
+      <div className=" px-2 mr-3 w-20 flex add-remove border-2 items-center justify-around">
+        <button
+          className=" text-red-500 text-3xl"
+          onClick={() => removeItems(itemName, quantity)}
+        >
+          -
+        </button>
+        <p className="text-green-500 font-bold">{quantity}</p>
+        <button
+          className="text-green-500 text-2xl"
+          onClick={() => repeatItems(itemName)}
+        >
+          +
+        </button>
       </div>
     </div>
   );
@@ -40,7 +62,13 @@ function Cart() {
       </div>
       <div className=" min-h-20  flex flex-col  ">
         {cartItems.map((item) => {
-          return <Item key={uuidv4()} itemName={item.dishName} />;
+          return (
+            <Item
+              key={uuidv4()}
+              itemName={item.dishName}
+              quantity={item.quantity}
+            />
+          );
         })}
       </div>
       <div className="bill-details flex flex-col  my-4 mx-2 border-t-2">
@@ -60,7 +88,7 @@ function Cart() {
         <div className="flex justify-between items-center my-4 border-green-500 px-2 border-t-2 border-b-2">
           <p className="font-medium py-1 px-1">To Pay</p>
           <p className="py-1 px-1 text-center  w-16">
-            ₹ {itemTotal + 19 + 20}{" "}
+            ₹ {itemTotal > 0 ? itemTotal + 19 + 20 : null}{" "}
           </p>
         </div>
       </div>

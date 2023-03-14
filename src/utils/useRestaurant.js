@@ -7,6 +7,8 @@ function useRestaurant(id) {
       const data = await fetch(FETCH_MENU + id);
       const json = await data.json();
       setRestaurant(json?.data);
+      // const restaurantdetails = restaurantPage;
+      // setRestaurant(restaurantdetails.data);
     };
     getRestaurantDetail();
   }, [id]);

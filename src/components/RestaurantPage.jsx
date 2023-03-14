@@ -4,8 +4,8 @@ import "../index.css";
 import { IMG_CDN_URL } from "../constant";
 import Cart from "./Cart";
 import useRestaurant from "../utils/useRestaurant";
-import { useDispatch } from "react-redux";
-import { addItems } from "../features/cart/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addItems, repeatItem } from "../features/cart/cartSlice";
 
 function FilteredMenu({ toFilter, category, handleClick }) {
   return (
@@ -45,7 +45,8 @@ function FilteredMenu({ toFilter, category, handleClick }) {
                 onClick={(e) => {
                   const dishName = item.name;
                   const dishPrice = item.price.toString().slice(0, -2);
-                  handleClick({ dishName, dishPrice });
+                  const quantity = 1;
+                  handleClick({ dishName, dishPrice, quantity });
                 }}
                 className="my-0 mx-auto border-2  h-10  px-4 hover:shadow-md"
               >
@@ -63,8 +64,20 @@ function RestaurantPage() {
   const restaurant = useRestaurant(id);
   const categories = ["Recommended"];
   const dispatch = useDispatch();
-  function handleClick(item) {
-    dispatch(addItems(item));
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  function repeatItems(dishName) {
+    dispatch(repeatItem(dishName));
+  }
+
+  function handleClick(addItem) {
+    const isPresent = cartItems.filter((item) => {
+      return item.dishName === addItem.dishName;
+    });
+    if (isPresent.length === 0) {
+      dispatch(addItems(addItem));
+    } else {
+      repeatItems(addItem.dishName);
+    }
   }
   if (restaurant) {
     Object?.values(restaurant?.menu?.items)?.forEach((item) => {
@@ -120,7 +133,7 @@ function RestaurantPage() {
           {categories.map((category) => {
             return (
               <li
-                className="px-3 category text-sm  font-medium cursor-pointer my-3 "
+                className="px-3 category text-sm md:text-right font-medium cursor-pointer my-3 "
                 key={uuidv4()}
               >
                 {category}
