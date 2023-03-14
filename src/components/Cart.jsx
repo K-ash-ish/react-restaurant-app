@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { removeItem, repeatItem, updateCart } from "../features/cart/cartSlice";
 function Item(props) {
-  const { itemName, quantity } = props;
+  const { itemName, quantity, price } = props;
   const dispatch = useDispatch();
   function repeatItems(dishName) {
     dispatch(repeatItem(dishName));
@@ -35,6 +35,7 @@ function Item(props) {
           +
         </button>
       </div>
+      <p>₹ {price}</p>
     </div>
   );
 }
@@ -43,7 +44,7 @@ function Cart() {
   let itemTotal = 0;
   if (cartItems.length > 0) {
     itemTotal = cartItems.reduce((total, item) => {
-      return total + parseInt(item.dishPrice);
+      return total + parseInt(item.dishPrice) * item.quantity;
     }, 0);
   }
   return (
@@ -67,6 +68,7 @@ function Cart() {
               key={uuidv4()}
               itemName={item.dishName}
               quantity={item.quantity}
+              price={item.dishPrice}
             />
           );
         })}
