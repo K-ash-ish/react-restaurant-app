@@ -16,6 +16,9 @@
   text-underline-offset: 4px;
   font-weight: 600;
 }
+.wrapper {
+  min-height: 550px;
+}
 .card {
   width: 250px;
   min-height: 300px;
