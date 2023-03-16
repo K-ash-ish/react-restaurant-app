@@ -14,6 +14,6 @@ const useCurrentLocation = () => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(getLocation);
   }, []);
-  // return coordinates;
+  return coordinates;
 };
 export default useCurrentLocation;
