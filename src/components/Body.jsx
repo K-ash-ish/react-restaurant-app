@@ -2,7 +2,7 @@ import ReastaurantCard from "./RestaurantCard";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { cuisineCategory } from "../constant";
+import { cuisineCategory, FETCH_RESTAURANT } from "../constant";
 import useOnline from "../utils/useOnline";
 import filterRestaurants, { filterByCuisines } from "../utils/helper";
 import useCurrentLocation from "../utils/useCurrentLocation";
