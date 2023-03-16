@@ -10,25 +10,24 @@ const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filterRestaurant, setFilterRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const { longitude, latitude } = useCurrentLocation();
-
+  let { longitude, latitude } = useCurrentLocation();
   useEffect(() => {
+    const getRestaurantsDetail = async () => {
+      //change to render url
+      const localApi = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=" +
+          latitude +
+          "&lng=" +
+          longitude +
+          "&page_type=DESKTOP_WEB_LISTING"
+      );
+      // const localApi = await fetch(FETCH_RESTAURANT);
+      const localJson = await localApi.json();
+      setAllRestaurants(localJson?.data?.cards[2]?.data?.data?.cards);
+      setFilterRestaurant(localJson?.data?.cards[2]?.data?.data?.cards);
+    };
     getRestaurantsDetail();
-  }, []);
-  const getRestaurantsDetail = async () => {
-    //change to render url
-    const localApi = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=" +
-        latitude +
-        "&lng=" +
-        longitude +
-        "&page_type=DESKTOP_WEB_LISTING"
-    );
-    // const localApi = await fetch(FETCH_RESTAURANT);
-    const localJson = await localApi.json();
-    setAllRestaurants(localJson?.data?.cards[2]?.data?.data?.cards);
-    setFilterRestaurant(localJson?.data?.cards[2]?.data?.data?.cards);
-  };
+  }, [latitude, longitude]);
   const isOnline = useOnline();
   if (!isOnline) {
     return <h1>Please Check Your NetworkBo</h1>;
