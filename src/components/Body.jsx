@@ -14,14 +14,14 @@ const Body = () => {
   useEffect(() => {
     const getRestaurantsDetail = async () => {
       //change to render url
-      const localApi = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=" +
-          latitude +
-          "&lng=" +
-          longitude +
-          "&page_type=DESKTOP_WEB_LISTING"
-      );
-      // const localApi = await fetch(FETCH_RESTAURANT);
+      // const localApi = await fetch(
+      //   "https://www.swiggy.com/dapi/restaurants/list/v5?lat=" +
+      //     latitude +
+      //     "&lng=" +
+      //     longitude +
+      //     "&page_type=DESKTOP_WEB_LISTING"
+      // );
+      const localApi = await fetch(FETCH_RESTAURANT);
       const localJson = await localApi.json();
       setAllRestaurants(localJson?.data?.cards[2]?.data?.data?.cards);
       setFilterRestaurant(localJson?.data?.cards[2]?.data?.data?.cards);
