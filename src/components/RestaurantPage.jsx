@@ -80,6 +80,9 @@ function RestaurantPage() {
     }
   }
   if (restaurant) {
+    return <h1>Working on it😅</h1>;
+  }
+  if (restaurant) {
     Object?.values(restaurant?.menu?.items)?.forEach((item) => {
       if (categories.indexOf(item.category) === -1) {
         categories.push(item.category);
