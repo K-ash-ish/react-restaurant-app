@@ -11,6 +11,7 @@ const Body = () => {
   const [filterRestaurant, setFilterRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
   let { longitude, latitude } = useCurrentLocation();
+  console.log(latitude, longitude)
   useEffect(() => {
     const getRestaurantsDetail = async () => {
       //change to render url

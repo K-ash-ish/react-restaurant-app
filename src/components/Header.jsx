@@ -3,8 +3,11 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import useCurrentLocation from "../utils/useCurrentLocation";
+import { useFirebase } from "../context/Firebase";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
 function Header() {
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const firebase = useFirebase();
   const totalItems = cartItems.reduce(
     (accumulator, currentValue) => accumulator + currentValue.quantity,
     0
@@ -32,9 +35,21 @@ function Header() {
             </span>
           </li>
         </NavLink>
-        <NavLink to="/login">
-          <li className="nav-item ">Login</li>
-        </NavLink>
+        {firebase.user ? (
+          <div>
+            <FontAwesomeIcon className="mx-2" icon={faUser} />{" "}
+            <button
+              onClick={firebase.logOut}
+              className="border-2 border-red-300 w-20 h-10 my-6 capitalize cursor-pointer hover:text-white hover:bg-red-500 hover:border-none transition-colors ease-in duration-300 "
+            >
+              LogOut
+            </button>{" "}
+          </div>
+        ) : (
+          <NavLink to="/login">
+            <li className="nav-item ">Login</li>
+          </NavLink>
+        )}
       </ul>
     </nav>
   );
