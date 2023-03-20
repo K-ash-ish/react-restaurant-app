@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import "../index.css";
-import { IMG_CDN_URL } from "../constant";
+import { IMG_CDN_URL, restaurantPage } from "../constant";
 import Cart from "./Cart";
 import useRestaurant from "../utils/useRestaurant";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,22 +20,22 @@ function FilteredMenu({ toFilter, category, handleClick }) {
             className="flex md:justify-between  md:my-4 border-b-2 md:pb-3"
           >
             <div className=" w-2/3 flex flex-col  justify-center">
-              <h2 className="font-medium text-lg">{item.name}</h2>
+              <h2 className="font-medium text-lg">{item?.card?.info?.name}</h2>
               <p className="my-2">
                 <span className="text-green-500">₹</span>
-                {item.price.toString().slice(0, -2)}
+                {item?.card?.info?.price?.toString()?.slice(0, -2)}
               </p>
-              {item.description ? (
+              {item?.card?.info?.description ? (
                 <p className="font-thin text-xs my-2 w-3/5">
-                  {item.description}
+                  {item?.card?.info?.description}
                 </p>
               ) : null}
             </div>
             <div className=" px-2 flex md:flex-row flex-wrap flex-col justify-around  md:justify-between  items-center w-1/3  h-36">
-              {item.cloudinaryImageId ? (
+              {item?.card?.info?.imageId ? (
                 <img
-                  src={IMG_CDN_URL + item.cloudinaryImageId}
-                  alt={item.name}
+                  src={IMG_CDN_URL + item?.card?.info?.imageId}
+                  alt={item?.card?.info?.name}
                   className="md:w-32 w-28 rounded-lg y-0 mx-auto"
                 />
               ) : (
@@ -43,8 +43,10 @@ function FilteredMenu({ toFilter, category, handleClick }) {
               )}
               <button
                 onClick={(e) => {
-                  const dishName = item.name;
-                  const dishPrice = item.price.toString().slice(0, -2);
+                  const dishName = item?.card?.info?.name;
+                  const dishPrice = item?.card?.info?.price
+                    ?.toString()
+                    ?.slice(0, -2);
                   const quantity = 1;
                   handleClick({ dishName, dishPrice, quantity });
                 }}
@@ -59,9 +61,14 @@ function FilteredMenu({ toFilter, category, handleClick }) {
     </div>
   );
 }
+function currentRestaurant() {
+  return (
+    <h1 className="capitalize">Something wrong with Restaurant searched.</h1>
+  );
+}
 function RestaurantPage() {
   const { id } = useParams();
-  const restaurant = useRestaurant(id);
+  let restaurant = useRestaurant(id);
   const categories = ["Recommended"];
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -79,44 +86,59 @@ function RestaurantPage() {
       repeatItems(addItem.dishName);
     }
   }
-  if (restaurant) {
-    return <h1>Working on it😅</h1>;
+
+  let restaurantInfo = restaurant?.cards[0].card?.card?.info;
+
+  let restaurantItem =
+    restaurant?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
+      ?.card?.itemCards;
+  let somethingWrong = 0;
+  if (restaurantItem === undefined) {
+    restaurantItem =
+      restaurantPage?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR
+        ?.cards[1]?.card?.card?.itemCards;
+    restaurantInfo = restaurantPage.data.cards[0].card.card.info;
+    somethingWrong++;
   }
-  if (restaurant) {
-    Object?.values(restaurant?.menu?.items)?.forEach((item) => {
-      if (categories.indexOf(item.category) === -1) {
-        categories.push(item.category);
+  if (restaurantItem) {
+    Object?.values(restaurantItem)?.forEach((item) => {
+      if (categories.indexOf(item.card.info.category) === -1) {
+        categories.push(item.card.info.category);
       }
     });
   }
+  // if (restaurantItem) {
+  //   return <h1>Somethin Went wrong Check another restaurant</h1>;
+  // }
   return restaurant ? (
     <div className=" capitalize w-full md: flex flex-col  items-center">
+      {somethingWrong > 0 ? currentRestaurant() : null}
       <div className=" my-5 text-white restaurant-banner w-full flex md:justify-start justify-center items-center ">
         <div className=" md:ml-48 hidden md:block">
           <img
             className="w-72"
-            src={IMG_CDN_URL + restaurant?.cloudinaryImageId}
+            src={IMG_CDN_URL + restaurantInfo?.cloudinaryImageId}
             alt="restaurant-img"
           />
         </div>
         <div className="md:ml-24 md:h-52 md:w-72 w-full flex justify-around items-center  md:flex-col md:justify-center ">
           <div className="md:border-b-2  md:border-red-500 md:pb-2 md:px-2">
-            <h1 className="text-2xl">{restaurant?.name}</h1>
+            <h1 className="text-2xl">{restaurantInfo?.name}</h1>
             <p className="font-thin text-lg">
-              {restaurant?.cuisines?.join(", ")}
+              {restaurantInfo?.cuisines?.join(", ")}
             </p>
           </div>
           <div className=" mt-4 mb-2  flex flex-row items-center justify-around text-xs">
             <div className="">
               <p className="font-semibold text-lg my-1">
-                {restaurant?.avgRating} ⭐
+                {restaurantInfo?.avgRating || "--"} ⭐
               </p>
-              <p>{restaurant?.totalRatingsString}</p>
+              <p>{restaurantInfo?.totalRatingsString}</p>
             </div>
             <div className="hidden md:block md:text-xl px-2">•</div>
             <div className="hidden md:flex flex-col">
               <p className="font-semibold text-lg my-1">
-                {restaurant?.sla?.slaString}
+                {restaurantInfo?.sla?.slaString}
               </p>
               <p>Delivery time</p>
             </div>
@@ -124,7 +146,7 @@ function RestaurantPage() {
             <div className="hidden md:flex flex-col">
               <p className="font-semibold text-lg my-1">
                 <span className="text-green-500">₹</span>
-                {restaurant?.costForTwo.toString().slice(0, -2)}
+                {restaurantInfo?.costForTwo.toString().slice(0, -2)}
               </p>
               <p>cost for two</p>
             </div>
@@ -149,16 +171,12 @@ function RestaurantPage() {
             return (
               <FilteredMenu
                 key={uuidv4()}
-                toFilter={Object?.values(restaurant?.menu?.items)}
+                toFilter={restaurantItem}
                 category={category}
                 handleClick={handleClick}
               />
             );
           })}
-
-          {/* {Object?.values(restaurant?.menu?.items)?.map((item) => {
-            return <li key={item.id}>{item.name}</li>;
-          })} */}
         </div>
         <Cart />
       </div>

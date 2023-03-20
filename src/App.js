@@ -13,6 +13,7 @@ import Login from "./components/Login";
 import RestaurantPage from "./components/RestaurantPage";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
+import ErrorBoundary from "./components/ErrorBoundary";
 function AppLayout() {
   return (
     <Provider store={store}>
@@ -51,7 +52,11 @@ const App = () => {
         <Route path="/" element=<Body /> />
         <Route path="login" element=<Login /> />
         <Route path="cart" element=<Cart /> />
-        <Route path="restaurant/:id" element=<RestaurantPage /> />
+        <Route
+          path="restaurant/:id"
+          element=<RestaurantPage />
+          errorElement={<ErrorBoundary />}
+        />
       </Route>
     )
   );

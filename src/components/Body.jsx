@@ -5,25 +5,25 @@ import { Link } from "react-router-dom";
 import { cuisineCategory, FETCH_RESTAURANT } from "../constant";
 import useOnline from "../utils/useOnline";
 import filterRestaurants, { filterByCuisines } from "../utils/helper";
-import useCurrentLocation from "../utils/useCurrentLocation";
+// import useCurrentLocation from "../utils/useCurrentLocation";
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filterRestaurant, setFilterRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
-  let { longitude, latitude } = useCurrentLocation();
-  console.log(latitude, longitude)
+  // let { longitude, latitude } = useCurrentLocation();
+  // console.log(latitude, longitude);
   useEffect(() => {
     const getRestaurantsDetail = async () => {
       //change to render url
       const localApi = await fetch(
-        `${FETCH_RESTAURANT}latitude=${latitude}&longitude=${longitude}`
+        `${FETCH_RESTAURANT}latitude=${23.1967235}&longitude=${79.9247217}`
       );
       const localJson = await localApi.json();
       setAllRestaurants(localJson?.data?.cards[2]?.data?.data?.cards);
       setFilterRestaurant(localJson?.data?.cards[2]?.data?.data?.cards);
     };
     getRestaurantsDetail();
-  }, [latitude, longitude]);
+  }, []);
   const isOnline = useOnline();
   if (!isOnline) {
     return <h1>Please Check Your NetworkBo</h1>;
