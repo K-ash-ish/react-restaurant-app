@@ -69,6 +69,8 @@ function currentRestaurant() {
 function RestaurantPage() {
   const { id } = useParams();
   let restaurant = useRestaurant(id);
+  // let restaurant = restaurantPage.data;
+  console.log(restaurant);
   const categories = ["Recommended"];
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -154,11 +156,11 @@ function RestaurantPage() {
         </div>
       </div>
       <div className=" w-full flex md:flex-row flex-col  md:justify-evenly">
-        <ul className="md:border-r-2  border-b-2 md:border-b-0  pr-4 md:w-1/5 py-2 h-1/2 my-2 flex flex-row  items-center md:flex-col md:items-end ">
+        <ul className="md:border-r-2  border-b-2 md:border-b-0  pr-4 md:w-1/5 py-2 h-1/2 my-2 flex flex-row flex-wrap  items-center md:flex-col  md:items-end ">
           {categories.map((category) => {
             return (
               <li
-                className="px-3 category text-sm md:text-right font-medium cursor-pointer my-3 "
+                className="px-3 border-2 border-red-300 rounded-md py-1 mx-2 category text-sm md:text-right font-medium cursor-pointer my-3 "
                 key={uuidv4()}
               >
                 {category}
