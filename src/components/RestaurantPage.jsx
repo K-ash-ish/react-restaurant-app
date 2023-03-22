@@ -170,7 +170,7 @@ function RestaurantPage() {
             );
           })}
         </ul>
-        <div className=" my-2 px-4  w-full md:w-5/12  md:mx-2  flex flex-col  md:overflow-y-scroll md:h-[700px]">
+        <div className="menu my-2 px-4  w-full md:w-5/12  md:mx-2  flex flex-col  md:overflow-auto md:h-[700px]">
           {categories.map((category) => {
             return (
               <FilteredMenu

@@ -38,6 +38,19 @@
   min-height: 300px;
   background-color: #171a29;
 }
+.menu::-webkit-scrollbar {
+  width: 3px;
+}
+.menu::-webkit-scrollbar-thumb {
+  height: 30px;
+  background-color: rgb(255, 42, 42);
+  border-radius: 10px;
+}
+.menu::-webkit-scrollbar-track {
+  /* border: 1px solid red;
+  width: 50px; */
+  border-right: 1px solid rgb(176, 174, 174);
+}
 
 @media (max-width: 768px) {
   .card {
