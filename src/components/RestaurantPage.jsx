@@ -6,6 +6,8 @@ import Cart from "./Cart";
 import useRestaurant from "../utils/useRestaurant";
 import { useDispatch, useSelector } from "react-redux";
 import { addItems, repeatItem } from "../features/cart/cartSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 
 function FilteredMenu({ toFilter, category, handleClick }) {
   return (
@@ -68,8 +70,8 @@ function currentRestaurant() {
 }
 function RestaurantPage() {
   const { id } = useParams();
-  let restaurant = useRestaurant(id);
-  // let restaurant = restaurantPage.data;
+  // let restaurant = useRestaurant(id);
+  let restaurant = restaurantPage.data;
   console.log(restaurant);
   const categories = ["Recommended"];
   const dispatch = useDispatch();
@@ -160,7 +162,7 @@ function RestaurantPage() {
           {categories.map((category) => {
             return (
               <li
-                className="px-3 border-2 border-red-300 rounded-md py-1 mx-2 category text-sm md:text-right font-medium cursor-pointer my-3 "
+                className=" underline   py-1 mx-2 category text-sm md:text-right font-medium cursor-pointer my-3 "
                 key={uuidv4()}
               >
                 {category}
@@ -168,7 +170,7 @@ function RestaurantPage() {
             );
           })}
         </ul>
-        <div className=" my-2 px-4  w-full md:w-5/12  md:mx-2  flex flex-col">
+        <div className=" my-2 px-4  w-full md:w-5/12  md:mx-2  flex flex-col  overflow-y-scroll h-[700px]">
           {categories.map((category) => {
             return (
               <FilteredMenu
@@ -182,6 +184,38 @@ function RestaurantPage() {
         </div>
         <Cart />
       </div>
+      <ul className="fixed bottom-28 md:hidden border-2 z-50">
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+        <li>Menu Items</li>
+      </ul>
+      <button className="md:hidden fixed top-[85%] border-2 rounded-md px-2 py-1 border-red-300">
+        <FontAwesomeIcon
+          className="md:hidden text-base mr-2 "
+          icon={faUtensils}
+        />
+        Browse Menu
+      </button>
+      <button className="md:hidden fixed top-[93%] border-2 rounded-md px-2 py-1 border-red-300">
+        Cart
+      </button>
     </div>
   ) : (
     <h1>Loading</h1>
