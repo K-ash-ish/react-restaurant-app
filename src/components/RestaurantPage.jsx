@@ -184,7 +184,7 @@ function RestaurantPage() {
         </div>
         <Cart />
       </div>
-      <ul className="fixed bottom-28 md:hidden border-2 z-50">
+      <ul className="fixed bottom-28 hidden border-2 z-50">
         <li>Menu Items</li>
         <li>Menu Items</li>
         <li>Menu Items</li>
