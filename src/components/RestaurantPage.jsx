@@ -70,8 +70,8 @@ function currentRestaurant() {
 }
 function RestaurantPage() {
   const { id } = useParams();
-  // let restaurant = useRestaurant(id);
-  let restaurant = restaurantPage.data;
+  let restaurant = useRestaurant(id);
+  // let restaurant = restaurantPage.data;
   console.log(restaurant);
   const categories = ["Recommended"];
   const dispatch = useDispatch();
@@ -170,7 +170,7 @@ function RestaurantPage() {
             );
           })}
         </ul>
-        <div className=" my-2 px-4  w-full md:w-5/12  md:mx-2  flex flex-col  overflow-y-scroll h-[700px]">
+        <div className=" my-2 px-4  w-full md:w-5/12  md:mx-2  flex flex-col  md:overflow-y-scroll md:h-[700px]">
           {categories.map((category) => {
             return (
               <FilteredMenu
