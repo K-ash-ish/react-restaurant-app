@@ -18,8 +18,8 @@ const Body = () => {
     const getRestaurantsDetail = async () => {
       //change to render url
       const localApi = await fetch(
-        // `${FETCH_RESTAURANT}latitude=${23.1967235}&longitude=${79.9247217}`
-        `${FETCH_RESTAURANT}lat=${latitude}&lng=${longitude}`
+        `${FETCH_RESTAURANT}latitude=${latitude}&longitude=${longitude}`
+        // `${FETCH_RESTAURANT}lat=${latitude}&lng=${longitude}`
       );
       const localJson = await localApi.json();
       console.log(localJson);
