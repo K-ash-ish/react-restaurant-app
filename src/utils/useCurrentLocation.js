@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
+
 const useCurrentLocation = () => {
   const [coordinates, setCoordinates] = useState({
     latitude: "",
     longitude: "",
   });
+
   function getLocation(position) {
     const { latitude, longitude } = position.coords;
+
     setCoordinates({
       latitude: latitude,
       longitude: longitude,
@@ -14,6 +17,7 @@ const useCurrentLocation = () => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(getLocation);
   }, []);
-  return coordinates;
+  return { coordinates, setCoordinates };
 };
+
 export default useCurrentLocation;

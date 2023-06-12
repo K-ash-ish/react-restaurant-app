@@ -2,17 +2,18 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import useCurrentLocation from "../utils/useCurrentLocation";
 import { useFirebase } from "../context/Firebase";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
+import LocationSearch from "./LocationSearch";
+import { useState } from "react";
 function Header() {
+  const [manualLocation, setManualLocation] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems);
   const firebase = useFirebase();
   const totalItems = cartItems.reduce(
     (accumulator, currentValue) => accumulator + currentValue.quantity,
     0
   );
-  useCurrentLocation();
   return (
     <nav className="flex flex-col md:flex-row md:justify-around w-full items-center justify-around my-2 py-1 md:border-b-2 h-20">
       {" "}
@@ -22,7 +23,9 @@ function Header() {
         </h1>
       </NavLink>
       <ul className="flex flex-row justify-evenly items-center text-lg  w-full md:w-1/2 h-14 ">
-        <li className="nav-item ">Location</li>
+        <li className="nav-item " onClick={() => setManualLocation(true)}>
+          Location
+        </li>
         <NavLink to="/cart">
           <li className="nav-item ">
             Cart{" "}
@@ -51,6 +54,12 @@ function Header() {
           </NavLink>
         )}
       </ul>
+      {manualLocation && (
+        <LocationSearch
+          setManualLocation={setManualLocation}
+          manualLocation={manualLocation}
+        />
+      )}
     </nav>
   );
 }

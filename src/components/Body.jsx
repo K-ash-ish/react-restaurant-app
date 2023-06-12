@@ -1,33 +1,36 @@
 import ReastaurantCard from "./RestaurantCard";
 import { v4 as uuidv4 } from "uuid";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { cuisineCategory, FETCH_RESTAURANT } from "../constant";
 import useOnline from "../utils/useOnline";
 import filterRestaurants, { filterByCuisines } from "../utils/helper";
 import useCurrentLocation from "../utils/useCurrentLocation";
+import { LocationContext } from "../context/LocationContext";
 
 // import useCurrentLocation from "../utils/useCurrentLocation";
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filterRestaurant, setFilterRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const { longitude, latitude } = useCurrentLocation();
-  console.log(latitude, longitude);
+  const { coordinates, setCoordinates } = useCurrentLocation();
+  const { latitude, longitude } = coordinates;
+  const { location } = useContext(LocationContext);
   useEffect(() => {
     const getRestaurantsDetail = async () => {
       //change to render url
       const localApi = await fetch(
-        `${FETCH_RESTAURANT}latitude=${latitude}&longitude=${longitude}`
+        `${FETCH_RESTAURANT}latitude=${location?.lat || latitude}&longitude=${
+          location?.lng || longitude
+        }`
         // `${FETCH_RESTAURANT}lat=${latitude}&lng=${longitude}`
       );
       const localJson = await localApi.json();
-      console.log(localJson);
       setAllRestaurants(localJson?.data?.cards[2]?.data?.data?.cards);
       setFilterRestaurant(localJson?.data?.cards[2]?.data?.data?.cards);
     };
     getRestaurantsDetail();
-  }, [latitude, longitude]);
+  }, [latitude, longitude, location]);
   const isOnline = useOnline();
   if (!isOnline) {
     return <h1>Please Check Your Network</h1>;
