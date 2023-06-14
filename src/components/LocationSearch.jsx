@@ -8,12 +8,8 @@ import { LocationContext } from "../context/LocationContext";
 function LocationSearch(props) {
   const { setManualLocation } = props;
   const [searchLocation, setSearchLocation] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
   const { location, setLocation } = useContext(LocationContext);
-  useEffect(() => {
-    searchLocation.length > 3 &&
-      useManualLocation(searchLocation, setSuggestions);
-  }, [searchLocation]);
+  const suggestions = useManualLocation(searchLocation);
   return (
     <div className=" w-1/3 h-full bg-gray-50 absolute top-0 right-0 border-l-2">
       <div className="flex border-b-2 h-20 my-2 py-1 justify-center items-center">

@@ -1,13 +1,28 @@
-const useManualLocation = (searchLocation, setSuggestions) => {
-  let locationJson;
-  const locations = async () => {
-    const location = await fetch(
-      `https://autocomplete.search.hereapi.com/v1/autocomplete?q=${searchLocation}&apiKey=${process.env.REACT_APP_GEO_API_KEY}&in=countryCode%3AIND`
-    );
-    locationJson = await location.json();
-    setSuggestions(locationJson.items);
-    return locationJson;
+import { useEffect, useState } from "react";
+
+const useManualLocation = (searchLocation) => {
+  const [suggestions, setSuggestions] = useState();
+  const getLocations = async (signal) => {
+    try {
+      const location = await fetch(
+        `https://autocomplete.search.hereapi.com/v1/autocomplete?q=${searchLocation}&apiKey=${process.env.REACT_APP_GEO_API_KEY}&in=countryCode%3AIND`,
+        { signal }
+      );
+      let locationJson = await location.json();
+      setSuggestions(locationJson.items);
+      console.log(locationJson);
+    } catch (error) {
+      if (error) return error;
+    }
   };
-  const getLocation = setTimeout(locations, 3000);
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    searchLocation.length > 3 && setTimeout(() => getLocations(signal), 2000);
+    return () => {
+      controller.abort();
+    };
+  }, [searchLocation]);
+  return suggestions;
 };
 export default useManualLocation;
