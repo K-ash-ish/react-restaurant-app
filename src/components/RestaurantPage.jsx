@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import "../index.css";
 import { IMG_CDN_URL, restaurantPage } from "../constant";
 import Cart from "./Cart";
-import useRestaurant from "../utils/useRestaurant";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { addItems, repeatItem } from "../features/cart/cartSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -70,9 +70,8 @@ function currentRestaurant() {
 }
 function RestaurantPage() {
   const { id } = useParams();
-  let restaurant = useRestaurant(id);
+  let restaurantMenu = useRestaurantMenu(id);
   // let restaurant = restaurantPage.data;
-  console.log(restaurant);
   const categories = ["Recommended"];
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -91,10 +90,10 @@ function RestaurantPage() {
     }
   }
 
-  let restaurantInfo = restaurant?.cards[0].card?.card?.info;
+  let restaurantInfo = restaurantMenu?.cards[0].card?.card?.info;
 
   let restaurantItem =
-    restaurant?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
+    restaurantMenu?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
       ?.card?.itemCards;
   let somethingWrong = 0;
   if (restaurantItem === undefined) {
@@ -114,7 +113,7 @@ function RestaurantPage() {
   // if (restaurantItem) {
   //   return <h1>Somethin Went wrong Check another restaurant</h1>;
   // }
-  return restaurant ? (
+  return restaurantMenu ? (
     <div className=" capitalize w-full md: flex flex-col  items-center">
       {somethingWrong > 0 ? currentRestaurant() : null}
       <div className=" my-5 text-white restaurant-banner w-full flex md:justify-start justify-center items-center ">
