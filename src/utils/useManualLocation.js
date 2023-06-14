@@ -10,7 +10,6 @@ const useManualLocation = (searchLocation) => {
       );
       let locationJson = await location.json();
       setSuggestions(locationJson.items);
-      console.log(locationJson);
     } catch (error) {
       if (error) return error;
     }
