@@ -9,7 +9,8 @@ import useRestaurants from "../utils/useRestaurants";
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
-  const { allRestaurants, filterRestaurant } = useRestaurants();
+  const { allRestaurants, filterRestaurant, setFilterRestaurant } =
+    useRestaurants();
   const isOnline = useOnline();
   if (!isOnline) {
     return <h1>Please Check Your Network</h1>;

@@ -24,7 +24,7 @@ function useRestaurants() {
   useEffect(() => {
     getRestaurantsDetail();
   }, [location, latitude, longitude]);
-  return { allRestaurants, filterRestaurant };
+  return { allRestaurants, filterRestaurant, setFilterRestaurant };
 }
 
 export default useRestaurants;
