@@ -4,8 +4,10 @@ import { LocationContext } from "../context/LocationContext";
 import { FETCH_RESTAURANT } from "../constant";
 
 function useRestaurants() {
+  const [totalRestaurant, setTotalRestaurant] = useState(0);
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filterRestaurant, setFilterRestaurant] = useState([]);
+  const [offset, setOffset] = useState(15);
   const { coordinates, setCoordinates } = useCurrentLocation();
   const { latitude, longitude } = coordinates;
   const { location } = useContext(LocationContext);
@@ -18,13 +20,20 @@ function useRestaurants() {
       // `${FETCH_RESTAURANT}lat=${latitude}&lng=${longitude}`
     );
     const localJson = await localApi.json();
-    setAllRestaurants(localJson?.data?.cards[2]?.data?.data?.cards);
-    setFilterRestaurant(localJson?.data?.cards[2]?.data?.data?.cards);
+    setTotalRestaurant(localJson?.data?.totalSize);
+    setAllRestaurants(localJson?.data?.cards);
+    setFilterRestaurant(localJson?.data?.cards);
   };
   useEffect(() => {
     getRestaurantsDetail();
   }, [location, latitude, longitude]);
-  return { allRestaurants, filterRestaurant, setFilterRestaurant };
+  return {
+    allRestaurants,
+    filterRestaurant,
+    setFilterRestaurant,
+    setOffset,
+    totalRestaurant,
+  };
 }
 
 export default useRestaurants;
