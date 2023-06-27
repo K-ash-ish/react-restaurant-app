@@ -21,8 +21,8 @@ function useRestaurants() {
     );
     const localJson = await localApi.json();
     setTotalRestaurant(localJson?.data?.totalSize);
-    setAllRestaurants(localJson?.data?.cards);
-    setFilterRestaurant(localJson?.data?.cards);
+    setAllRestaurants(localJson?.data?.cards[2]?.data?.data?.cards);
+    setFilterRestaurant(localJson?.data?.cards[2]?.data?.data?.cards);
   };
   useEffect(() => {
     getRestaurantsDetail();

@@ -9,8 +9,12 @@ import useRestaurants from "../utils/useRestaurants";
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
-  const { allRestaurants, filterRestaurant, setFilterRestaurant } =
-    useRestaurants();
+  const {
+    allRestaurants,
+    filterRestaurant,
+    setFilterRestaurant,
+    totalRestaurant,
+  } = useRestaurants();
   const isOnline = useOnline();
   if (!isOnline) {
     return <h1>Please Check Your Network</h1>;
@@ -64,15 +68,17 @@ const Body = () => {
         </div>
       </div>
       <div className="my-0 mx-auto  flex flex-col  sm:flex-row sm:w-5/6 w-full  sm:flex-wrap items-center justify-center  ">
-        {filterRestaurant.length === 0 ? (
+        {filterRestaurant?.length === 0 ? (
           <h1>Restaurant Not found</h1>
         ) : (
-          filterRestaurant.map((restaurant) => {
-            return (
-              <Link key={uuidv4()} to={"/restaurant/" + restaurant.data.id}>
-                <ReastaurantCard {...restaurant.data} />
-              </Link>
-            );
+          filterRestaurant?.map((restaurant) => {
+            {
+              return (
+                <Link key={uuidv4()} to={"/restaurant/" + restaurant?.data?.id}>
+                  <ReastaurantCard {...restaurant?.data} />
+                </Link>
+              );
+            }
           })
         )}
       </div>
