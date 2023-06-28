@@ -7,32 +7,49 @@ function useRestaurants() {
   const [totalRestaurant, setTotalRestaurant] = useState(0);
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filterRestaurant, setFilterRestaurant] = useState([]);
-  const [offset, setOffset] = useState(15);
+  const [isLoading, setIsLoading] = useState(false);
+  const [offset, setOffset] = useState(0);
   const { coordinates, setCoordinates } = useCurrentLocation();
   const { latitude, longitude } = coordinates;
   const { location } = useContext(LocationContext);
   const getRestaurantsDetail = async () => {
-    //change to render url
-    const localApi = await fetch(
-      `${FETCH_RESTAURANT}latitude=${location?.lat || latitude}&longitude=${
-        location?.lng || longitude
-      }`
-      // `${FETCH_RESTAURANT}lat=${latitude}&lng=${longitude}`
-    );
-    const localJson = await localApi.json();
-    setTotalRestaurant(localJson?.data?.totalSize);
-    setAllRestaurants(localJson?.data?.cards[2]?.data?.data?.cards);
-    setFilterRestaurant(localJson?.data?.cards[2]?.data?.data?.cards);
+    if (offset > 0) {
+      const localApi = await fetch(
+        `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${latitude}&lng=${longitude}&offset=${offset}&sortBy=RELEVANCE&pageType=SEE_ALL&page_type=DESKTOP_SEE_ALL_LISTING`
+      );
+      const localJson = await localApi.json();
+      let restaurants = localJson?.data?.cards?.map((data) => data?.data);
+      setIsLoading(false);
+      setAllRestaurants((prevValue) => [...prevValue, ...restaurants]);
+      setFilterRestaurant((prevValue) => [...prevValue, ...restaurants]);
+    } else {
+      //change to render url
+      const localApi = await fetch(
+        `${FETCH_RESTAURANT}latitude=${location?.lat || latitude}&longitude=${
+          location?.lng || longitude
+        }`
+        // `${FETCH_RESTAURANT}lat=${latitude}&lng=${longitude}`
+      );
+      const localJson = await localApi.json();
+      setTotalRestaurant(
+        localJson?.data?.cards[2]?.data?.data?.totalOpenRestaurants
+      );
+      setAllRestaurants(localJson?.data?.cards[2]?.data?.data?.cards);
+      setFilterRestaurant(localJson?.data?.cards[2]?.data?.data?.cards);
+    }
   };
   useEffect(() => {
     getRestaurantsDetail();
-  }, [location, latitude, longitude]);
+  }, [location, latitude, longitude, offset]);
   return {
     allRestaurants,
     filterRestaurant,
     setFilterRestaurant,
     setOffset,
+    offset,
     totalRestaurant,
+    isLoading,
+    setIsLoading,
   };
 }
 
