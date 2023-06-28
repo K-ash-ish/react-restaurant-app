@@ -15,7 +15,9 @@ function useRestaurants() {
   const getRestaurantsDetail = async () => {
     if (offset > 0) {
       const localApi = await fetch(
-        `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${latitude}&lng=${longitude}&offset=${offset}&sortBy=RELEVANCE&pageType=SEE_ALL&page_type=DESKTOP_SEE_ALL_LISTING`
+        `${FETCH_RESTAURANT}latitude=${location?.lat || latitude}&longitude=${
+          location?.lng || longitude
+        }&offset=${offset}`
       );
       const localJson = await localApi.json();
       let restaurants = localJson?.data?.cards?.map((data) => data?.data);
