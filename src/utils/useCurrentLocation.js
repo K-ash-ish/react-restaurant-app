@@ -8,7 +8,6 @@ const useCurrentLocation = () => {
 
   function getLocation(position) {
     const { latitude, longitude } = position.coords;
-
     setCoordinates({
       latitude: latitude,
       longitude: longitude,

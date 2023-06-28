@@ -1,11 +1,15 @@
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShoppingCart,
+  faLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
 import { useFirebase } from "../context/Firebase";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import LocationSearch from "./LocationSearch";
 import { useState } from "react";
+import useGetCity from "../utils/useGetCity";
 function Header() {
   const [manualLocation, setManualLocation] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -14,6 +18,8 @@ function Header() {
     (accumulator, currentValue) => accumulator + currentValue.quantity,
     0
   );
+  const cityName = useGetCity();
+  console.log(cityName);
   return (
     <nav className="flex flex-col md:flex-row md:justify-around w-full items-center justify-around my-2 py-1 md:border-b-2 h-20">
       {" "}
@@ -23,6 +29,13 @@ function Header() {
         </h1>
       </NavLink>
       <ul className="flex flex-row justify-evenly items-center text-lg  w-full md:w-1/2 h-14 ">
+        <li>
+          <FontAwesomeIcon
+            icon={faLocationDot}
+            className="text-orange-500 px-4"
+          />
+          {cityName || "***"}
+        </li>
         <li className="nav-item " onClick={() => setManualLocation(true)}>
           Location
         </li>
