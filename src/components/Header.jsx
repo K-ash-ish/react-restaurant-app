@@ -19,7 +19,6 @@ function Header() {
     0
   );
   const cityName = useGetCity();
-  console.log(cityName);
   return (
     <nav className="flex flex-col md:flex-row md:justify-around w-full items-center justify-around my-2 py-1 md:border-b-2 h-20">
       {" "}

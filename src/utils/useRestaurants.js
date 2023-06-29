@@ -13,36 +13,42 @@ function useRestaurants() {
   const { latitude, longitude } = coordinates;
   const { location } = useContext(LocationContext);
   const getRestaurantsDetail = async () => {
-    if (offset > 0) {
-      const localApi = await fetch(
-        `${FETCH_RESTAURANT}latitude=${location?.lat || latitude}&longitude=${
-          location?.lng || longitude
-        }&offset=${offset}`
-      );
-      const localJson = await localApi.json();
-      let restaurants = localJson?.data?.cards?.map((data) => data?.data);
-      setIsLoading(false);
-      setAllRestaurants((prevValue) => [...prevValue, ...restaurants]);
-      setFilterRestaurant((prevValue) => [...prevValue, ...restaurants]);
-    } else {
-      //change to render url
-      const localApi = await fetch(
-        `${FETCH_RESTAURANT}latitude=${location?.lat || latitude}&longitude=${
-          location?.lng || longitude
-        }`
-        // `${FETCH_RESTAURANT}lat=${latitude}&lng=${longitude}`
-      );
-      const localJson = await localApi.json();
-      setTotalRestaurant(
-        localJson?.data?.cards[2]?.data?.data?.totalOpenRestaurants
-      );
-      setAllRestaurants(localJson?.data?.cards[2]?.data?.data?.cards);
-      setFilterRestaurant(localJson?.data?.cards[2]?.data?.data?.cards);
-    }
+    //change to render url
+    const localApi = await fetch(
+      `${FETCH_RESTAURANT}latitude=${location?.lat || latitude}&longitude=${
+        location?.lng || longitude
+      }`
+      // `${FETCH_RESTAURANT}lat=${latitude}&lng=${longitude}`
+    );
+    const localJson = await localApi.json();
+    setTotalRestaurant(
+      localJson?.data?.cards[2]?.data?.data?.totalOpenRestaurants
+    );
+    setAllRestaurants(localJson?.data?.cards[2]?.data?.data?.cards);
+    setFilterRestaurant(localJson?.data?.cards[2]?.data?.data?.cards);
   };
   useEffect(() => {
+    offset > 0 &&
+      (async () => {
+        const localApi = await fetch(
+          `${FETCH_RESTAURANT}latitude=${location?.lat || latitude}&longitude=${
+            location?.lng || longitude
+          }&offset=${offset}`
+        );
+        const localJson = await localApi.json();
+        let restaurants = localJson?.data?.cards?.map((data) => data?.data);
+        setIsLoading(false);
+        setAllRestaurants((prevValue) => [...prevValue, ...restaurants]);
+        setFilterRestaurant((prevValue) => [...prevValue, ...restaurants]);
+      })();
+  }, [offset]);
+
+  useEffect(() => {
+    setAllRestaurants([]);
+    setFilterRestaurant([]);
+    setOffset(0);
     getRestaurantsDetail();
-  }, [location, latitude, longitude, offset]);
+  }, [location, latitude, longitude]);
   return {
     allRestaurants,
     filterRestaurant,
@@ -52,6 +58,7 @@ function useRestaurants() {
     totalRestaurant,
     isLoading,
     setIsLoading,
+    setAllRestaurants,
   };
 }
 
