@@ -1,8 +1,15 @@
 ## Eat-Treat
 
-This is a food ordering app that has been created using modern technologies such as React, Redux-toolkit and Firebase Authentication. Styled using TailwindCSS. The website is fully mobile Responsive.
+This is a food ordering app that has been created using modern technologies such as React, Redux-toolkit and Firebase Authentication. Styled using TailwindCSS. The website is mobile Responsive.
 
-Work under progress. [Live](https://eat-treat.netlify.app/)
+Project Completed. [Live](https://eat-treat.netlify.app/)
+
+## Functionalities
+
+- Add items to cart.
+- Location-based restaurants.
+- User Login.
+- Infinite Scrolling to load more restaurants.
 
 ![](./pika-1679249665305-1x.png)
 
