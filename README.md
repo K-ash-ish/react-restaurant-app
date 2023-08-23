@@ -9,7 +9,7 @@ Project Completed. [Live](https://eat-treat.netlify.app/)
 - Add items to cart.
 - Location-based restaurants.
 - User Login.
-- Infinite Scrolling to load more restaurants.
+- Infinite Scrolling to load more restaurants.❌(Currently not working)
 
 ![](./pika-1679249665305-1x.png)
 
