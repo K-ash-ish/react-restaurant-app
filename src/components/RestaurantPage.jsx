@@ -78,7 +78,6 @@ function RestaurantPage() {
   const categories = ["Recommended"];
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
-  console.log(cartItems);
   function repeatItems(dishName) {
     dispatch(repeatItem(dishName));
   }
@@ -209,7 +208,7 @@ function RestaurantPage() {
             </button>
           </>
         ) : null}
-        <Cart />
+        {!showCart && <Cart />}
       </div>
       {/* <ul className="fixed bottom-28  border-2 z-50">
         <li>Menu Items</li>

@@ -51,7 +51,7 @@ const Body = () => {
     // );
   }
   return (
-    allRestaurants.length > 0 && (
+    allRestaurants?.length > 0 && (
       <div className="wrapper sm:my-0 sm:mx-auto w-full  flex flex-col ">
         <div className=" py-2  flex flex-col md:flex-row my-0 mx-auto sm:w-5/6 md:mb-4 md:my-4 border-b-2 md:items-center">
           <div className="search-box h-10   flex flex-row justify-center items-center">
