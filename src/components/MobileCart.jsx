@@ -1,12 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeItem, repeatItem } from "../features/cart/cartSlice";
+import { removeItem, repeatItem, updateCart } from "../features/cart/cartSlice";
 
 function MobileCart() {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
   return (
-    <div className="px-2">
+    <div className="px-2 flex flex-col gap-2">
       <h1 className="font-semibold">Cart Items</h1>
       {cartItems.map((item, index) => (
         <div key={index}>
@@ -17,6 +17,10 @@ function MobileCart() {
                 className="font-semibold  px-1"
                 onClick={() => {
                   dispatch(removeItem(item.dishName));
+                  if (item.quantity === 1) {
+                    // if quantity was 1 then after removing it should be 0 so updating the cart
+                    dispatch(updateCart());
+                  }
                 }}
               >
                 -
