@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItems, repeatItem } from "../features/cart/cartSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUtensils } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import MobileCart from "./MobileCart";
 
 function FilteredMenu({ toFilter, category, handleClick }) {
   return (
@@ -70,11 +72,13 @@ function currentRestaurant() {
 }
 function RestaurantPage() {
   const { id } = useParams();
+  const [showCart, setShowCart] = useState(false);
   let restaurantMenu = useRestaurantMenu(id);
   // let restaurant = restaurantPage.data;
   const categories = ["Recommended"];
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
+  console.log(cartItems);
   function repeatItems(dishName) {
     dispatch(repeatItem(dishName));
   }
@@ -114,7 +118,7 @@ function RestaurantPage() {
   //   return <h1>Somethin Went wrong Check another restaurant</h1>;
   // }
   return restaurantMenu ? (
-    <div className=" capitalize w-full md: flex flex-col  items-center">
+    <div className=" capitalize w-full md: flex flex-col  items-center relative ">
       {somethingWrong > 0 ? currentRestaurant() : null}
       <div className=" my-5 text-white restaurant-banner w-full flex md:justify-start justify-center items-center ">
         <div className=" md:ml-48 hidden md:block">
@@ -181,40 +185,42 @@ function RestaurantPage() {
             );
           })}
         </div>
+        {cartItems?.length > 0 ? (
+          <>
+            <div
+              className={` fixed bottom-24 left-0 right-0 md:hidden bg-gray-50 w-80 mx-auto  rounded-xl border-2 border-black  ${
+                showCart ? "h-auto p-2" : "h-0 border-0"
+              } transition-all ease-in-out duration-500 ${
+                showCart ? "translate-y-0" : "translate-y-full"
+              }`}
+            >
+              <div className="flex flex-col-reverse p-2  overflow-y-auto h-full">
+                {showCart && <MobileCart />}
+              </div>
+            </div>
+            <button
+              className="md:hidden bg-gray-50  w-40 mx-auto fixed bottom-10 left-0 right-0 border-2 rounded-md px-1 py-2 "
+              onClick={() => setShowCart(!showCart)}
+            >
+              Cart{" "}
+              <span className="text-red-500 font-semibold">
+                {cartItems.length}
+              </span>
+            </button>
+          </>
+        ) : null}
         <Cart />
       </div>
-      <ul className="fixed bottom-28 hidden border-2 z-50">
+      {/* <ul className="fixed bottom-28  border-2 z-50">
         <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-        <li>Menu Items</li>
-      </ul>
-      <button className="md:hidden fixed top-[85%] border-2 rounded-md px-2 py-1 border-red-300">
+      </ul> 
+       <button className="md:hidden fixed top-[85%] border-2 rounded-md px-2 py-1 border-red-300">
         <FontAwesomeIcon
           className="md:hidden text-base mr-2 "
           icon={faUtensils}
         />
         Browse Menu
-      </button>
-      <button className="md:hidden fixed top-[93%] border-2 rounded-md px-2 py-1 border-red-300">
-        Cart
-      </button>
+      </button> */}
     </div>
   ) : (
     <h1>Loading</h1>

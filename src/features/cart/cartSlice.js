@@ -26,7 +26,9 @@ export const cartSlice = createSlice({
     removeItem: (state, action) => {
       state.cartItems.forEach((item, index) => {
         if (action.payload === item.dishName) {
-          if (item.quantity > 0) state.cartItems[index].quantity--;
+          if (item.quantity > 0) {
+            state.cartItems[index].quantity--;
+          }
         }
       });
     },
