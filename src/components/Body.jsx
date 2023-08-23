@@ -21,21 +21,21 @@ const Body = () => {
     isLoading,
     setIsLoading,
   } = useRestaurants();
-
-  const lastRestaurantCard = useCallback(
-    (node) => {
-      if (isLoading) return;
-      if (observer.current) observer.current.disconnect;
-      observer.current = new IntersectionObserver((restaurants) => {
-        if (restaurants[0].isIntersecting && offset + 15 <= totalRestaurant) {
-          setIsLoading(true);
-          setOffset(offset + 16);
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [offset, totalRestaurant, isLoading]
-  );
+  // infinite scroll
+  // const lastRestaurantCard = useCallback(
+  //   (node) => {
+  //     if (isLoading) return;
+  //     if (observer.current) observer.current.disconnect;
+  //     observer.current = new IntersectionObserver((restaurants) => {
+  //       if (restaurants[0].isIntersecting && offset + 15 <= totalRestaurant) {
+  //         setIsLoading(true);
+  //         setOffset(offset + 16);
+  //       }
+  //     });
+  //     if (node) observer.current.observe(node);
+  //   },
+  //   [offset, totalRestaurant, isLoading]
+  // );
 
   const isOnline = useOnline();
   if (!isOnline) {
@@ -99,25 +99,26 @@ const Body = () => {
               {
                 /* console.log(restaurant?.data); */
               }
-              if (filterRestaurant.length === index + 1) {
+              {
+                /* if (filterRestaurant.length === index + 1) {
                 return (
                   <Link
                     ref={lastRestaurantCard}
                     key={uuidv4()}
-                    to={"/restaurant/" + restaurant?.data?.id}
+                    to={"/restaurant/" + restaurant?.info?.id}
                   >
-                    <ReastaurantCard {...restaurant?.data} />
+                    <ReastaurantCard {...restaurant?.info} />
                   </Link>
                 );
-              } else {
-                return (
-                  <Link
-                    key={uuidv4()}
-                    to={"/restaurant/" + restaurant?.data?.id}
-                  >
-                    <ReastaurantCard {...restaurant?.data} />
-                  </Link>
-                );
+              } else { */
+              }
+              return (
+                <Link key={uuidv4()} to={"/restaurant/" + restaurant?.info?.id}>
+                  <ReastaurantCard {...restaurant?.info} />
+                </Link>
+              );
+              {
+                /* } */
               }
             })
           )}

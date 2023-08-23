@@ -1,13 +1,7 @@
 import { IMG_CDN_URL } from "../constant";
 function ReastaurantCard(props) {
-  const {
-    name,
-    cuisines,
-    cloudinaryImageId,
-    avgRating,
-    costForTwoString,
-    slaString,
-  } = props;
+  const { name, cuisines, cloudinaryImageId, avgRating, costForTwo, sla } =
+    props;
   return (
     <div className="card w-full  p-4 m-3  flex  md:flex-col  items-center justify-around hover:border-2 cursor-pointer">
       <div className=" restaurant-img md:w-full  w-1/4 h-24 flex items-center">
@@ -25,9 +19,9 @@ function ReastaurantCard(props) {
         <div className=" mt-4 mb-2  flex flex-row items-center justify-around text-xs">
           <div>{avgRating} ⭐</div>
           <div className="div">•</div>
-          <div>{slaString}</div>
+          <div>{sla?.slaString}</div>
           <div className="div">•</div>
-          <div>{costForTwoString}</div>
+          <div>{costForTwo}</div>
         </div>
       </div>
     </div>
