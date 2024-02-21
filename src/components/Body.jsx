@@ -3,9 +3,9 @@ import { v4 as uuidv4 } from "uuid";
 import { useCallback, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { cuisineCategory, FETCH_RESTAURANT } from "../constant";
-import useOnline from "../utils/useOnline";
+import useOnline from "../hooks/useOnline";
 import filterRestaurants, { filterByCuisines } from "../utils/helper";
-import useRestaurants from "../utils/useRestaurants";
+import useRestaurants from "../hooks/useRestaurants";
 import { RestaurantCardShimmer, RestaurantsShimmer } from "./Shimmer";
 
 const Body = () => {

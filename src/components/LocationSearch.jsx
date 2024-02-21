@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import useManualLocation from "../utils/useManualLocation";
+import useManualLocation from "../hooks/useManualLocation";
 import getCoordinates from "../utils/getCoordinates";
 import { LocationContext } from "../context/LocationContext";
 

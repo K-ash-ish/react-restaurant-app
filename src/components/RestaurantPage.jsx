@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import "../index.css";
 import { IMG_CDN_URL, restaurantPage } from "../constant";
 import Cart from "./Cart";
-import useRestaurantMenu from "../utils/useRestaurantMenu";
+import useRestaurantMenu from "../hooks/useRestaurantMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { addItems, repeatItem } from "../features/cart/cartSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
