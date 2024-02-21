@@ -11,12 +11,12 @@ Project Completed. [Live](https://eat-treat.netlify.app/)
 - User Login.
 - Infinite Scrolling to load more restaurants.❌(Currently not working)
 
-![](./pika-1679249665305-1x.png)
+![](./public/images/pika-1679249665305-1x.png)
 
-Cart and Menu
+<!-- Cart and Menu
 
-![](./pika-1679250695005-1x.png)
+![](./public/images//pika-1679250695005-1x.png)
 
 User Login
 
-![](./pika-1679249983322-1x.png)
+![](./public/images/pika-1679249983322-1x.png) -->
