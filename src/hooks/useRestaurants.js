@@ -12,24 +12,44 @@ function useRestaurants() {
   const { coordinates, setCoordinates } = useCurrentLocation();
   const { latitude, longitude } = coordinates;
   const { location } = useContext(LocationContext);
+  function checkResData(json) {
+    let restaurantData, restaurantCount;
+    for (let i = 0; i < json?.data?.cards?.length; i++) {
+      // initialize checkData for Swiggy Restaurant data
+      if (
+        json?.data?.cards[i]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      ) {
+        restaurantData =
+          json?.data?.cards[i]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants;
+      }
+      if (json?.data?.cards[i]?.card?.card?.restaurantCount) {
+        restaurantCount = json?.data?.cards[i]?.card?.card?.restaurantCount;
+      }
+      if (restaurantData && restaurantCount) {
+        break;
+      }
+    }
+    return { restaurantData, restaurantCount };
+    // if restaurantDatais not undefined then return it
+  }
   const getRestaurantsDetail = async () => {
     //change to render url
     const localApi = await fetch(
       `${FETCH_RESTAURANT}latitude=${location?.lat || latitude}&longitude=${
         location?.lng || longitude
       }`
-      // `${FETCH_RESTAURANT}lat=${latitude}&lng=${longitude}`
+      // `${FETCH_RESTAURANT}lat=${location?.lat || latitude}&lng=${
+      //   location?.lng || longitude
+      // }`
     );
+
     const localJson = await localApi.json();
-    setTotalRestaurant(localJson?.data?.cards[4]?.card?.card?.restaurantCount);
-    setAllRestaurants(
-      localJson?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
-    setFilterRestaurant(
-      localJson?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
+    const { restaurantData, restaurantCount } = checkResData(localJson);
+    setTotalRestaurant(restaurantCount);
+    setAllRestaurants(restaurantData);
+    setFilterRestaurant(restaurantData);
   };
   useEffect(() => {
     offset > 0 &&
@@ -40,20 +60,17 @@ function useRestaurants() {
           }&offset=${offset}`
         );
         const localJson = await localApi.json();
-        console.log(
-          localJson?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
-            ?.restaurants
-        );
-
+        const { restaurantData } = checkResData(localJson);
         setIsLoading(false);
-        setAllRestaurants((prevValue) => [...prevValue, ...restaurants]);
-        setFilterRestaurant((prevValue) => [...prevValue, ...restaurants]);
+        setAllRestaurants((prevValue) => [...prevValue, ...restaurantData]);
+        setFilterRestaurant((prevValue) => [...prevValue, ...restaurantData]);
       })();
   }, [offset]);
 
   useEffect(() => {
     setAllRestaurants([]);
     setFilterRestaurant([]);
+    setTotalRestaurant(0);
     setOffset(0);
     getRestaurantsDetail();
   }, [location, latitude, longitude]);
