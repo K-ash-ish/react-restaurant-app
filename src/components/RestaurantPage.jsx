@@ -11,13 +11,14 @@ import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import MobileCart from "./MobileCart";
 
-function FilteredMenu({ toFilter, category, handleClick }) {
+function FilteredMenu({ categories, handleClick }) {
+  console.log("categories");
   return (
     <div className=" flex flex-col ">
       <h1 className="font-medium text-xl underline decoration-red-500 underline-offset-4 my-4 md:my-0">
-        {category}
+        {categories?.title}
       </h1>
-      {toFilter.map((item) => {
+      {categories?.itemCards?.map((item) => {
         return (
           <div
             key={uuidv4()}
@@ -65,17 +66,18 @@ function FilteredMenu({ toFilter, category, handleClick }) {
     </div>
   );
 }
-function currentRestaurant() {
-  return (
-    <h1 className="capitalize">Something wrong with Restaurant searched.</h1>
-  );
-}
+
 function RestaurantPage() {
   const { id } = useParams();
   const [showCart, setShowCart] = useState(false);
-  let restaurantMenu = useRestaurantMenu(id);
+  let restaurantMenu, restaurantInfo, categories;
+  let restaurantDetails = useRestaurantMenu(id);
+  if (restaurantDetails) {
+    restaurantMenu = restaurantDetails.restaurantMenu;
+    restaurantInfo = restaurantDetails.restaurantInfo;
+    categories = restaurantMenu?.map((categories) => categories?.title);
+  }
   // let restaurant = restaurantPage.data;
-  const categories = ["Recommended"];
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
   function repeatItems(dishName) {
@@ -93,32 +95,31 @@ function RestaurantPage() {
     }
   }
 
-  let restaurantInfo = restaurantMenu?.cards[0].card?.card?.info;
+  // let restaurantInfo = restaurantMenu?.cards[0].card?.card?.info;
 
-  let restaurantItem =
-    restaurantMenu?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
-      ?.card?.itemCards;
-  let somethingWrong = 0;
-  if (restaurantItem === undefined) {
-    restaurantItem =
-      restaurantPage?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR
-        ?.cards[1]?.card?.card?.itemCards;
-    restaurantInfo = restaurantPage.data.cards[0].card.card.info;
-    somethingWrong++;
-  }
-  if (restaurantItem) {
-    Object?.values(restaurantItem)?.forEach((item) => {
-      if (categories.indexOf(item.card.info.category) === -1) {
-        categories.push(item.card.info.category);
-      }
-    });
-  }
+  // let restaurantItem =
+  //   restaurantMenu?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
+  //     ?.card?.itemCards;
+  // let somethingWrong = 0;
+  // if (restaurantItem === undefined) {
+  //   restaurantItem =
+  //     restaurantPage?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR
+  //       ?.cards[1]?.card?.card?.itemCards;
+  //   restaurantInfo = restaurantPage.data.cards[0].card.card.info;
+  //   somethingWrong++;
+  // }
+  // if (restaurantItem) {
+  //   Object?.values(restaurantItem)?.forEach((item) => {
+  //     if (categories.indexOf(item.card.info.category) === -1) {
+  //       categories.push(item.card.info.category);
+  //     }
+  //   });
+  // }
   // if (restaurantItem) {
   //   return <h1>Somethin Went wrong Check another restaurant</h1>;
   // }
   return restaurantMenu ? (
     <div className=" capitalize w-full md: flex flex-col  items-center relative ">
-      {somethingWrong > 0 ? currentRestaurant() : null}
       <div className=" my-5 text-white restaurant-banner w-full flex md:justify-start justify-center items-center ">
         <div className=" md:ml-48 hidden md:block">
           <img
@@ -161,7 +162,7 @@ function RestaurantPage() {
       </div>
       <div className=" w-full flex md:flex-row flex-col  md:justify-evenly">
         <ul className="md:border-r-2  border-b-2 md:border-b-0  pr-4 md:w-1/5 py-2 h-1/2 my-2 flex flex-row flex-wrap  items-center md:flex-col  md:items-end ">
-          {categories.map((category) => {
+          {categories?.map((category) => {
             return (
               <li
                 className=" underline   py-1 mx-2 category text-sm md:text-right font-medium cursor-pointer my-3 "
@@ -173,18 +174,17 @@ function RestaurantPage() {
           })}
         </ul>
         <div className="menu my-2 px-4  w-full md:w-5/12  md:mx-2  flex flex-col  md:overflow-auto md:h-[700px]">
-          {categories.map((category) => {
+          {restaurantMenu?.map((categories) => {
             return (
               <FilteredMenu
                 key={uuidv4()}
-                toFilter={restaurantItem}
-                category={category}
+                categories={categories}
                 handleClick={handleClick}
               />
             );
           })}
         </div>
-        {cartItems?.length > 0 ? (
+        {/* {cartItems?.length > 0 ? (
           <>
             <div
               className={` fixed bottom-24 left-0 right-0 md:hidden bg-gray-50 w-80 mx-auto  rounded-xl border-2 border-black  ${
@@ -207,19 +207,9 @@ function RestaurantPage() {
               </span>
             </button>
           </>
-        ) : null}
-        {!showCart && <Cart />}
+        ) : null} */}
+        {/* {!showCart && <Cart />} */}
       </div>
-      {/* <ul className="fixed bottom-28  border-2 z-50">
-        <li>Menu Items</li>
-      </ul> 
-       <button className="md:hidden fixed top-[85%] border-2 rounded-md px-2 py-1 border-red-300">
-        <FontAwesomeIcon
-          className="md:hidden text-base mr-2 "
-          icon={faUtensils}
-        />
-        Browse Menu
-      </button> */}
     </div>
   ) : (
     <h1>Loading</h1>
