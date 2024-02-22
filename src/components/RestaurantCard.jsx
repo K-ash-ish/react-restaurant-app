@@ -3,7 +3,7 @@ function ReastaurantCard(props) {
   const { name, cuisines, cloudinaryImageId, avgRating, costForTwo, sla } =
     props;
   return (
-    <div className="card w-full  p-4 m-3  flex  md:flex-col  items-center justify-around hover:border-2 cursor-pointer">
+    <div className="card   p-4 m-3  flex  md:flex-col  items-center justify-around hover:shadow-lg hover:rounded-md cursor-pointer">
       <div className=" restaurant-img md:w-full  w-1/4 h-24 flex items-center">
         <img
           className="rounded-xl md:rounded-none "
@@ -12,7 +12,7 @@ function ReastaurantCard(props) {
         />
       </div>
       <div className="card-details  md:w-full w-3/5">
-        <h1 className="font-bold my-1">{name}</h1>
+        <h1 className="font-bold my-1">{name?.substring(0, 20) + "..."}</h1>
         <div className="cuisines  text-xs flex flex-wrap">
           <p>{cuisines?.join(", ")}</p>
         </div>

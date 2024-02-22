@@ -8,6 +8,7 @@ function useRestaurants() {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filterRestaurant, setFilterRestaurant] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [swiggyNotPresent, setSwiggyNotPresent] = useState(false);
   const [offset, setOffset] = useState(0);
   const { coordinates, setCoordinates } = useCurrentLocation();
   const { latitude, longitude } = coordinates;
@@ -30,6 +31,9 @@ function useRestaurants() {
       if (restaurantData && restaurantCount) {
         break;
       }
+    }
+    if (json?.data?.communication?.swiggyNotPresent) {
+      setSwiggyNotPresent(true);
     }
     return { restaurantData, restaurantCount };
     // if restaurantDatais not undefined then return it
@@ -84,6 +88,7 @@ function useRestaurants() {
     isLoading,
     setIsLoading,
     setAllRestaurants,
+    swiggyNotPresent,
   };
 }
 

@@ -1,6 +1,6 @@
 import ReastaurantCard from "./RestaurantCard";
 import { v4 as uuidv4 } from "uuid";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { cuisineCategory, FETCH_RESTAURANT } from "../constant";
 import useOnline from "../hooks/useOnline";
@@ -20,7 +20,9 @@ const Body = () => {
     setOffset,
     isLoading,
     setIsLoading,
+    swiggyNotPresent,
   } = useRestaurants();
+  useEffect(() => {}, [swiggyNotPresent]);
   // infinite scroll
   // const lastRestaurantCard = useCallback(
   //   (node) => {
@@ -41,14 +43,13 @@ const Body = () => {
   if (!isOnline) {
     return <h1>Please Check Your Network</h1>;
   }
-  if (!allRestaurants) {
-    return <RestaurantsShimmer />;
-    // return (
-    //   <h1>
-    //     No restaurant servicable Check in some other time Or change your
-    //     location
-    //   </h1>
-    // );
+  if (swiggyNotPresent) {
+    return (
+      <div>
+        No restaurant servicable Check in some other time Or change your
+        location
+      </div>
+    );
   }
   return (
     allRestaurants?.length > 0 && (
@@ -56,6 +57,7 @@ const Body = () => {
         <div className=" py-2  flex flex-col md:flex-row my-0 mx-auto sm:w-5/6 md:mb-4 md:my-4 border-b-2 md:items-center">
           <div className="search-box h-10   flex flex-row justify-center items-center">
             <input
+              id="search-restaurant"
               type="text"
               className="border-2 px-2 py-1 h-8  text-sm focus:outline-gray-300"
               value={searchText}

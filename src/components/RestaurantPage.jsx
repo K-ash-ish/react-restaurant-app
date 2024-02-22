@@ -12,7 +12,6 @@ import { useState } from "react";
 import MobileCart from "./MobileCart";
 
 function FilteredMenu({ categories, handleClick }) {
-  console.log("categories");
   return (
     <div className=" flex flex-col ">
       <h1 className="font-medium text-xl underline decoration-red-500 underline-offset-4 my-4 md:my-0">
