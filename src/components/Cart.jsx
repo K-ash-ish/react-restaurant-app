@@ -47,8 +47,11 @@ function Cart() {
       return total + parseInt(item.dishPrice) * item.quantity;
     }, 0);
   }
+  if (cartItems?.length === 0) {
+    return <h1>Please add something to cart</h1>;
+  }
   return (
-    <section className="h-fit my-12 w-11/12 cart capitalize min-h-96 md:w-1/4 md:flex md:flex-col ">
+    <section className="h-fit my-12 w-11/12 border-2  capitalize min-h-96 md:w-[340px] p-2 md:flex md:flex-col ">
       <div className=" pb-3 flex   ">
         <button className="pr-4 pl-1 text-2xl">
           <FontAwesomeIcon icon={faArrowLeftLong} />
@@ -73,7 +76,7 @@ function Cart() {
           );
         })}
       </div>
-      <div className="bill-details flex flex-col  my-4 mx-2 border-t-2">
+      <div className=" flex flex-col  my-4 mx-2 border-t-2">
         <h1 className="font-bold px-1 py-1">Bill Details</h1>
         <div className=" flex justify-between px-2 font-thin">
           <div className="">

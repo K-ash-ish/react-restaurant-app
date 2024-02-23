@@ -11,7 +11,7 @@ function LocationSearch(props) {
   const { location, setLocation } = useContext(LocationContext);
   const suggestions = useManualLocation(searchLocation);
   return (
-    <div className=" w-1/3 h-full bg-gray-50 absolute top-0 right-0 border-l-2">
+    <div className=" md:w-[350px] w-full h-full bg-gray-50 absolute top-0 right-0 border-l-2 z-20">
       <div className="flex border-b-2 h-20 my-2 py-1 justify-center items-center">
         <FontAwesomeIcon
           onClick={() => setManualLocation(false)}

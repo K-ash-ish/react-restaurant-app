@@ -18,6 +18,7 @@ function FilteredMenu({ categories, handleClick }) {
         {categories?.title}
       </h1>
       {categories?.itemCards?.map((item) => {
+       
         return (
           <div
             key={uuidv4()}
@@ -27,7 +28,8 @@ function FilteredMenu({ categories, handleClick }) {
               <h2 className="font-medium text-lg">{item?.card?.info?.name}</h2>
               <p className="my-2">
                 <span className="text-green-500">₹</span>
-                {item?.card?.info?.price?.toString()?.slice(0, -2)}
+                {item?.card?.info?.price?.toString()?.slice(0, -2) ||
+                  item?.card?.info?.defaultPrice?.toString()?.slice(0, -2)}
               </p>
               {item?.card?.info?.description ? (
                 <p className="font-thin text-xs my-2 w-3/5">
@@ -48,9 +50,9 @@ function FilteredMenu({ categories, handleClick }) {
               <button
                 onClick={(e) => {
                   const dishName = item?.card?.info?.name;
-                  const dishPrice = item?.card?.info?.price
-                    ?.toString()
-                    ?.slice(0, -2);
+                  const dishPrice =
+                    item?.card?.info?.price?.toString()?.slice(0, -2) ||
+                    item?.card?.info?.defaultPrice?.toString()?.slice(0, -2);
                   const quantity = 1;
                   handleClick({ dishName, dishPrice, quantity });
                 }}
@@ -94,29 +96,6 @@ function RestaurantPage() {
     }
   }
 
-  // let restaurantInfo = restaurantMenu?.cards[0].card?.card?.info;
-
-  // let restaurantItem =
-  //   restaurantMenu?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
-  //     ?.card?.itemCards;
-  // let somethingWrong = 0;
-  // if (restaurantItem === undefined) {
-  //   restaurantItem =
-  //     restaurantPage?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR
-  //       ?.cards[1]?.card?.card?.itemCards;
-  //   restaurantInfo = restaurantPage.data.cards[0].card.card.info;
-  //   somethingWrong++;
-  // }
-  // if (restaurantItem) {
-  //   Object?.values(restaurantItem)?.forEach((item) => {
-  //     if (categories.indexOf(item.card.info.category) === -1) {
-  //       categories.push(item.card.info.category);
-  //     }
-  //   });
-  // }
-  // if (restaurantItem) {
-  //   return <h1>Somethin Went wrong Check another restaurant</h1>;
-  // }
   return restaurantMenu ? (
     <div className=" capitalize w-full md: flex flex-col  items-center relative ">
       <div className=" my-5 text-white restaurant-banner w-full flex md:justify-start justify-center items-center ">
@@ -159,7 +138,7 @@ function RestaurantPage() {
           </div>
         </div>
       </div>
-      <div className=" w-full flex md:flex-row flex-col  md:justify-evenly">
+      <div className=" w-5/6 flex md:flex-row md:justify-center md:gap-10 flex-col  ">
         <ul className="md:border-r-2  border-b-2 md:border-b-0  pr-4 md:w-1/5 py-2 h-1/2 my-2 flex flex-row flex-wrap  items-center md:flex-col  md:items-end ">
           {categories?.map((category) => {
             return (
@@ -183,21 +162,22 @@ function RestaurantPage() {
             );
           })}
         </div>
-        {/* {cartItems?.length > 0 ? (
+        {cartItems?.length > 0 ? (
           <>
             <div
-              className={` fixed bottom-24 left-0 right-0 md:hidden bg-gray-50 w-80 mx-auto  rounded-xl border-2 border-black  ${
-                showCart ? "h-auto p-2" : "h-0 border-0"
-              } transition-all ease-in-out duration-500 ${
-                showCart ? "translate-y-0" : "translate-y-full"
-              }`}
+              className={` fixed bottom-24 left-0 right-0  bg-gray-50 w-80 mx-auto  rounded-xl shadow-md border-2  border-red-200   
+               transition-all ease-in-out duration-500 ${
+                 showCart
+                   ? "translate-y-0"
+                   : "translate-y-full opacity-0  border-none "
+               }`}
             >
               <div className="flex flex-col-reverse p-2  overflow-y-auto h-full">
-                {showCart && <MobileCart />}
+                <MobileCart />
               </div>
             </div>
             <button
-              className="md:hidden bg-gray-50  w-40 mx-auto fixed bottom-10 left-0 right-0 border-2 rounded-md px-1 py-2 "
+              className=" bg-gray-50  w-40 mx-auto fixed bottom-10 left-0 right-0 border-2 rounded-md px-1 py-2 "
               onClick={() => setShowCart(!showCart)}
             >
               Cart{" "}
@@ -206,8 +186,7 @@ function RestaurantPage() {
               </span>
             </button>
           </>
-        ) : null} */}
-        {/* {!showCart && <Cart />} */}
+        ) : null}
       </div>
     </div>
   ) : (

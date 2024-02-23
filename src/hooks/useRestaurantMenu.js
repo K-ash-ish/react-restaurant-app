@@ -9,7 +9,6 @@ function useRestaurantMenu(id) {
   const { latitude, longitude } = coordinates;
   const { location } = useContext(LocationContext);
   function getResAndMenuInfo(json) {
-    // json?.data?.cards?.map((x) => console.log("card ", x.card));
     const restaurantInfo = json?.data?.cards
       ?.map((x) => x.card)
       ?.filter(
