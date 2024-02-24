@@ -12,7 +12,9 @@ function ReastaurantCard(props) {
         />
       </div>
       <div className="card-details  md:w-full w-3/5">
-        <h1 className="font-bold my-1">{name?.substring(0, 20) + "..."}</h1>
+        <h1 className="font-bold my-1">
+          {name?.length > 20 ? name?.substring(0, 20) + "..." : name}
+        </h1>
         <div className="cuisines  text-xs flex flex-wrap">
           <p>{cuisines?.join(", ")}</p>
         </div>

@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import MobileCart from "./MobileCart";
+import { RestaurantPageShimmer } from "./Shimmer";
 
 function FilteredMenu({ categories, handleClick }) {
   return (
@@ -18,7 +19,6 @@ function FilteredMenu({ categories, handleClick }) {
         {categories?.title}
       </h1>
       {categories?.itemCards?.map((item) => {
-       
         return (
           <div
             key={uuidv4()}
@@ -95,10 +95,9 @@ function RestaurantPage() {
       repeatItems(addItem.dishName);
     }
   }
-
   return restaurantMenu ? (
     <div className=" capitalize w-full md: flex flex-col  items-center relative ">
-      <div className=" my-5 text-white restaurant-banner w-full flex md:justify-start justify-center items-center ">
+      <div className="border-2 border-red-300 my-5 text-white restaurant-banner w-full flex md:justify-around  items-center ">
         <div className=" md:ml-48 hidden md:block">
           <img
             className="w-72"
@@ -190,7 +189,7 @@ function RestaurantPage() {
       </div>
     </div>
   ) : (
-    <h1>Loading</h1>
+    <RestaurantPageShimmer />
   );
 }
 export default RestaurantPage;

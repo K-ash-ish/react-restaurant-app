@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { v4 as uuidv4 } from "uuid";
 import { removeItem, repeatItem, updateCart } from "../features/cart/cartSlice";
+import { IMG_CDN_URL } from "../constant";
+import { NavLink } from "react-router-dom";
 function Item(props) {
   const { itemName, quantity, price } = props;
   const dispatch = useDispatch();
@@ -48,7 +50,24 @@ function Cart() {
     }, 0);
   }
   if (cartItems?.length === 0) {
-    return <h1>Please add something to cart</h1>;
+    return (
+      <div className="border-2 w-[300px] h-[300px] rounded-md shadow-md flex flex-col justify-evenly  items-center ">
+        <img
+          className="w-72 h-auto"
+          src={
+            IMG_CDN_URL +
+            "v1674029845/PC_Creative%20refresh/3D_bau/banners_new/Burger.png"
+          }
+          alt=""
+        />
+        <h2 className="text-lg font-semibold">Your cart is empty</h2>
+        <NavLink to="/">
+          <button className="border-2 bg-orange-400 p-2 rounded-md shadow-md font-semibold">
+            Order Something
+          </button>
+        </NavLink>
+      </div>
+    );
   }
   return (
     <section className="h-fit my-12 w-11/12 border-2  capitalize min-h-96 md:w-[340px] p-2 md:flex md:flex-col ">
