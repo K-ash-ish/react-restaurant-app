@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { removeItem, repeatItem, updateCart } from "../features/cart/cartSlice";
 import { IMG_CDN_URL } from "../constant";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 function Item(props) {
   const { itemName, quantity, price } = props;
   const dispatch = useDispatch();
@@ -42,6 +42,7 @@ function Item(props) {
   );
 }
 function Cart() {
+  const previousLocationPathName = useLocation().state.previousLocationPathName;
   const cartItems = useSelector((state) => state.cart.cartItems);
   let itemTotal = 0;
   if (cartItems.length > 0) {
@@ -72,9 +73,11 @@ function Cart() {
   return (
     <section className="h-fit my-12 w-11/12 border-2  capitalize min-h-96 md:w-[340px] p-2 md:flex md:flex-col ">
       <div className=" pb-3 flex   ">
-        <button className="pr-4 pl-1 text-2xl">
-          <FontAwesomeIcon icon={faArrowLeftLong} />
-        </button>
+        <NavLink to={previousLocationPathName}>
+          <button className="pr-4 pl-1 text-2xl">
+            <FontAwesomeIcon icon={faArrowLeftLong} />
+          </button>
+        </NavLink>
         <div className="">
           <p className="font-medium">Restaurant Name</p>
           <div className="flex font-light justify-evenly">

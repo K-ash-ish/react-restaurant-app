@@ -37,25 +37,6 @@ function AppLayout() {
   );
 }
 
-// const router = createBrowserRouter([
-//   {
-//     element: <AppLayout />,
-//     children: [
-//       {
-//         path: "/",
-//         element: <Body />,
-//       },
-//       {
-//         path: "/cart",
-//         element: <Cart />,
-//       },
-//       {
-//         path: "/login",
-//         element: <Login />,
-//       },
-//     ],
-//   },
-// ]);
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(

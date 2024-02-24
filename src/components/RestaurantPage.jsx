@@ -9,8 +9,9 @@ import { addItems, repeatItem } from "../features/cart/cartSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import MobileCart from "./MobileCart";
+import FloatingCart from "./FloatingCart";
 import { RestaurantPageShimmer } from "./Shimmer";
+import { addRestaurantInfo } from "../features/restaurant/restaurantSlice";
 
 function FilteredMenu({ categories, handleClick }) {
   return (
@@ -71,6 +72,7 @@ function FilteredMenu({ categories, handleClick }) {
 function RestaurantPage() {
   const { id } = useParams();
   const [showCart, setShowCart] = useState(false);
+  const [cartError, setCartError] = useState(false);
   let restaurantMenu, restaurantInfo, categories;
   let restaurantDetails = useRestaurantMenu(id);
   if (restaurantDetails) {
@@ -81,11 +83,27 @@ function RestaurantPage() {
   // let restaurant = restaurantPage.data;
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const cartRestaurantInfo = useSelector(
+    (state) => state.restaurantInfo.cartRestaurantInfo
+  );
   function repeatItems(dishName) {
     dispatch(repeatItem(dishName));
   }
 
   function handleClick(addItem) {
+    if (cartItems?.length === 0) {
+      const { id, name, city } = restaurantInfo;
+      const info = { id, name, city };
+      dispatch(addRestaurantInfo(info));
+    }
+    if (
+      cartItems?.length > 0 &&
+      restaurantInfo?.name !== cartRestaurantInfo?.name
+    ) {
+      setShowCart(true);
+      setCartError(true);
+      return;
+    }
     const isPresent = cartItems.filter((item) => {
       return item.dishName === addItem.dishName;
     });
@@ -97,7 +115,7 @@ function RestaurantPage() {
   }
   return restaurantMenu ? (
     <div className=" capitalize w-full md: flex flex-col  items-center relative ">
-      <div className="border-2 border-red-300 my-5 text-white restaurant-banner w-full flex md:justify-around  items-center ">
+      <div className=" my-5 text-white restaurant-banner w-full flex md:justify-around  items-center ">
         <div className=" md:ml-48 hidden md:block">
           <img
             className="w-72"
@@ -172,7 +190,7 @@ function RestaurantPage() {
                }`}
             >
               <div className="flex flex-col-reverse p-2  overflow-y-auto h-full">
-                <MobileCart />
+                <FloatingCart setShowCart={setShowCart} cartError={cartError} />
               </div>
             </div>
             <button
