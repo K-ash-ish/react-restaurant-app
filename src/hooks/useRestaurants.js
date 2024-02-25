@@ -76,6 +76,9 @@ function useRestaurants() {
     setFilterRestaurant([]);
     setTotalRestaurant(0);
     setOffset(0);
+    if (swiggyNotPresent) {
+      setSwiggyNotPresent(false);
+    }
     getRestaurantsDetail();
   }, [location, latitude, longitude]);
   return {

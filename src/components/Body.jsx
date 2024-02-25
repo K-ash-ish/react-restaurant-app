@@ -98,13 +98,11 @@ const Body = () => {
             <h1>Restaurant Not found</h1>
           ) : (
             filterRestaurant?.map((restaurant, index) => {
-             
               return (
                 <Link key={uuidv4()} to={"/restaurant/" + restaurant?.info?.id}>
                   <ReastaurantCard {...restaurant?.info} />
                 </Link>
               );
-             
             })
           )}
           {isLoading && <RestaurantCardShimmer />}
