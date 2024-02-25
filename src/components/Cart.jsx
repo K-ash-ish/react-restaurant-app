@@ -42,8 +42,9 @@ function Item(props) {
   );
 }
 function Cart() {
-  const previousLocationPathName = useLocation().state.previousLocationPathName;
-  const cartItems = useSelector((state) => state.cart.cartItems);
+  const previousLocationPathName =
+    useLocation()?.state?.previousLocationPathName;
+  const cartItems = useSelector((state) => state?.cart?.cartItems);
   let itemTotal = 0;
   if (cartItems.length > 0) {
     itemTotal = cartItems.reduce((total, item) => {

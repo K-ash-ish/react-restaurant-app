@@ -98,7 +98,7 @@ function RestaurantPage() {
     }
     if (
       cartItems?.length > 0 &&
-      restaurantInfo?.name !== cartRestaurantInfo?.name
+      restaurantInfo?.id !== cartRestaurantInfo?.id
     ) {
       setShowCart(true);
       setCartError(true);
@@ -113,6 +113,7 @@ function RestaurantPage() {
       repeatItems(addItem.dishName);
     }
   }
+  console.log();
   return restaurantMenu ? (
     <div className=" capitalize w-full md: flex flex-col  items-center relative ">
       <div className=" my-5 text-white restaurant-banner w-full flex md:justify-around  items-center ">
