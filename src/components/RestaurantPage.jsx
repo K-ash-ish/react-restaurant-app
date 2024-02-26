@@ -1,19 +1,17 @@
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import "../index.css";
-import { IMG_CDN_URL, restaurantPage } from "../constant";
-import Cart from "./Cart";
+import { IMG_CDN_URL } from "../constant";
 import useRestaurantMenu from "../hooks/useRestaurantMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { addItems, repeatItem } from "../features/cart/cartSlice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import FloatingCart from "./FloatingCart";
-import { RestaurantPageShimmer } from "./Shimmer";
+import { RestaurantPageShimmer } from "./ui/Shimmer";
 import { addRestaurantInfo } from "../features/restaurant/restaurantSlice";
 import Modal from "./ui/Modal";
 import { createPortal } from "react-dom";
+import RestaurantBanner from "./ui/RestaurantBanner";
 
 function FilteredMenu({ categories, handleClick }) {
   return (
@@ -148,46 +146,7 @@ function RestaurantPage() {
   console.log();
   return restaurantMenu ? (
     <div className=" capitalize w-full md: flex flex-col  items-center relative ">
-      <div className=" my-5 text-white restaurant-banner w-full flex md:justify-around  items-center ">
-        <div className=" md:ml-48 hidden md:block">
-          <img
-            className="w-72"
-            src={IMG_CDN_URL + restaurantInfo?.cloudinaryImageId}
-            alt="restaurant-img"
-          />
-        </div>
-        <div className="md:ml-24 md:h-52 md:w-72 w-full flex justify-around items-center  md:flex-col md:justify-center ">
-          <div className="md:border-b-2  md:border-red-500 md:pb-2 md:px-2">
-            <h1 className="text-2xl">{restaurantInfo?.name}</h1>
-            <p className="font-thin text-lg">
-              {restaurantInfo?.cuisines?.join(", ")}
-            </p>
-          </div>
-          <div className=" mt-4 mb-2  flex flex-row items-center justify-around text-xs">
-            <div className="">
-              <p className="font-semibold text-lg my-1">
-                {restaurantInfo?.avgRating || "--"} ⭐
-              </p>
-              <p>{restaurantInfo?.totalRatingsString}</p>
-            </div>
-            <div className="hidden md:block md:text-xl px-2">•</div>
-            <div className="hidden md:flex flex-col">
-              <p className="font-semibold text-lg my-1">
-                {restaurantInfo?.sla?.slaString}
-              </p>
-              <p>Delivery time</p>
-            </div>
-            <div className="hidden md:block md:text-xl px-2">•</div>
-            <div className="hidden md:flex flex-col">
-              <p className="font-semibold text-lg my-1">
-                <span className="text-green-500">₹</span>
-                {restaurantInfo?.costForTwo.toString().slice(0, -2)}
-              </p>
-              <p>cost for two</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <RestaurantBanner restaurantInfo={restaurantInfo} />
       <div className=" w-5/6 flex md:flex-row md:justify-center md:gap-10 flex-col  ">
         <ul className="md:border-r-2  border-b-2 md:border-b-0  pr-4 md:w-1/5 py-2 h-1/2 my-2 flex flex-row flex-wrap  items-center md:flex-col  md:items-end ">
           {categories?.map((category) => {
