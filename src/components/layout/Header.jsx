@@ -5,11 +5,11 @@ import {
   faShoppingCart,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useFirebase } from "../context/Firebase";
+import { useFirebase } from "../../context/Firebase";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import LocationSearch from "./LocationSearch";
+import LocationSearch from "../LocationSearch";
 import { useState } from "react";
-import useGetCity from "../hooks/useGetCity";
+import useGetCity from "../../hooks/useGetCity";
 function Header() {
   const [manualLocation, setManualLocation] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems);

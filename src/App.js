@@ -7,8 +7,6 @@ import {
 } from "react-router-dom";
 import Body from "./components/Body";
 import Cart from "./components/Cart";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
 import Login from "./components/Login";
 import RestaurantPage from "./components/RestaurantPage";
 import { store } from "./app/store";
@@ -20,6 +18,8 @@ import {
   setLocation,
 } from "./context/LocationContext";
 import { useState } from "react";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
 function AppLayout() {
   const [location, setLocation] = useState();
   return (
