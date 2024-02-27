@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import "../index.css";
-import { IMG_CDN_URL } from "../constant";
 import useRestaurantMenu from "../hooks/useRestaurantMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { addItems, repeatItem } from "../features/cart/cartSlice";
@@ -9,99 +8,11 @@ import { useState } from "react";
 import FloatingCart from "./FloatingCart";
 import { RestaurantPageShimmer } from "./ui/Shimmer";
 import { addRestaurantInfo } from "../features/restaurant/restaurantSlice";
-import Modal from "./ui/Modal";
-import { createPortal } from "react-dom";
 import RestaurantBanner from "./ui/RestaurantBanner";
-
-function FilteredMenu({ categories, handleClick }) {
-  return (
-    <div className=" flex flex-col ">
-      <h1 className="font-medium text-xl underline decoration-red-500 underline-offset-4 my-4 md:my-0">
-        {categories?.title}
-      </h1>
-      {categories?.itemCards?.map((item) => {
-        const [showDescription, setShowDescription] = useState(false);
-        return (
-          <div
-            key={uuidv4()}
-            className="flex md:justify-between   md:my-4 border-b-2 md:pb-3"
-          >
-            <div className=" w-2/3 flex flex-col  justify-center items-start">
-              <h2 className="font-medium text-lg">{item?.card?.info?.name}</h2>
-              <p className="my-2">
-                <span className="text-green-500">₹</span>
-                {item?.card?.info?.price?.toString()?.slice(0, -2) ||
-                  item?.card?.info?.defaultPrice?.toString()?.slice(0, -2)}
-              </p>
-              {item?.card?.info?.description ? (
-                <>
-                  {showDescription &&
-                    createPortal(
-                      <Modal
-                        isOpen={showDescription}
-                        setIsOpen={setShowDescription}
-                        content={item?.card?.info?.description}
-                        customClass={
-                          "font-thin text-xs flex items-center px-2 border-2 border-orange-100"
-                        }
-                      >
-                        <div className="flex flex-col gap-1 py-1">
-                          <h4 className="text-sm font-semibold">Description</h4>
-                          <p className="font-thin text-xs ">
-                            {item?.card?.info?.description}
-                          </p>
-                        </div>
-                      </Modal>,
-                      document.body
-                    )}
-                  <button
-                    className=" text-xs underline decoration-red-500 underline-offset-1 font-light"
-                    onClick={() => {
-                      document
-                        .getElementById("root")
-                        .classList.toggle("blur-sm");
-                      setShowDescription(true);
-                    }}
-                  >
-                    Description
-                  </button>
-                </>
-              ) : null}
-            </div>
-            <div className=" px-2 flex md:flex-row flex-wrap flex-col justify-around  md:justify-between  items-center w-1/3  h-36">
-              {item?.card?.info?.imageId ? (
-                <img
-                  src={IMG_CDN_URL + item?.card?.info?.imageId}
-                  alt={item?.card?.info?.name}
-                  className="md:w-32 w-28 rounded-lg y-0 mx-auto"
-                />
-              ) : (
-                <div></div>
-              )}
-              <button
-                onClick={(e) => {
-                  const dishName = item?.card?.info?.name;
-                  const dishPrice =
-                    item?.card?.info?.price?.toString()?.slice(0, -2) ||
-                    item?.card?.info?.defaultPrice?.toString()?.slice(0, -2);
-                  const quantity = 1;
-                  handleClick({ dishName, dishPrice, quantity });
-                }}
-                className="my-0 mx-auto border-2  h-10  px-4 hover:shadow-md"
-              >
-                Add
-              </button>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
+import FilterMenu from "./ui/FilterMenu";
 
 function RestaurantPage() {
   const { id } = useParams();
-  const [showCart, setShowCart] = useState(false);
   const [cartError, setCartError] = useState(false);
   let restaurantMenu, restaurantInfo, categories;
   let restaurantDetails = useRestaurantMenu(id);
@@ -143,7 +54,6 @@ function RestaurantPage() {
       repeatItems(addItem.dishName);
     }
   }
-  console.log();
   return restaurantMenu ? (
     <div className=" capitalize w-full md: flex flex-col  items-center relative ">
       <RestaurantBanner restaurantInfo={restaurantInfo} />
@@ -163,7 +73,7 @@ function RestaurantPage() {
         <div className="menu my-2 px-4  w-full md:w-5/12  md:mx-2  flex flex-col  md:overflow-auto md:h-[700px]">
           {restaurantMenu?.map((categories) => {
             return (
-              <FilteredMenu
+              <FilterMenu
                 key={uuidv4()}
                 categories={categories}
                 handleClick={handleClick}
@@ -173,27 +83,7 @@ function RestaurantPage() {
         </div>
         {cartItems?.length > 0 ? (
           <>
-            <div
-              className={` fixed bottom-24 left-0 right-0  bg-gray-50 w-80 mx-auto  rounded-xl shadow-md border-2  border-red-200   
-               transition-all ease-in-out duration-500 ${
-                 showCart
-                   ? "translate-y-0"
-                   : "translate-y-full opacity-0  border-none "
-               }`}
-            >
-              <div className="flex flex-col-reverse p-2  overflow-y-auto h-full">
-                <FloatingCart setShowCart={setShowCart} cartError={cartError} />
-              </div>
-            </div>
-            <button
-              className=" bg-gray-50  w-40 mx-auto fixed bottom-10 left-0 right-0 border-2 rounded-md px-1 py-2 "
-              onClick={() => setShowCart(!showCart)}
-            >
-              Cart{" "}
-              <span className="text-red-500 font-semibold">
-                {cartItems.length}
-              </span>
-            </button>
+            <FloatingCart cartError={cartError} />
           </>
         ) : null}
       </div>
