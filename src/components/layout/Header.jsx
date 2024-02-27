@@ -41,7 +41,7 @@ function Header() {
         <NavLink to="/cart">
           <li className="nav-item ">
             Cart{" "}
-            <span className="underline decoration-red-500 underline-offset-2 text-base font-bold">
+            <span className=" text-base font-bold">
               {totalItems > 0 ? (
                 totalItems
               ) : (
@@ -51,14 +51,14 @@ function Header() {
           </li>
         </NavLink>
         {firebase.user ? (
-          <div>
-            <FontAwesomeIcon className="mx-2" icon={faUser} />{" "}
+          <div className="flex items-center gap-2">
+            <FontAwesomeIcon className="" icon={faUser} />
             <button
               onClick={firebase.logOut}
-              className="border-2 border-red-300 w-20 h-10 my-6 capitalize cursor-pointer hover:text-white hover:bg-red-500 hover:border-none transition-colors ease-in duration-300 "
+              className="border-2 border-red-300 px-4 rounded-full capitalize cursor-pointer hover:text-white hover:bg-red-500 hover:border-black transition-colors ease-in duration-300 "
             >
               LogOut
-            </button>{" "}
+            </button>
           </div>
         ) : (
           <NavLink to="/login">

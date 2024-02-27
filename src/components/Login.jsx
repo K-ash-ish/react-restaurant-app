@@ -77,7 +77,7 @@ function Login() {
     }
   });
   return (
-    <div className="login-container w-11/12 border-2  flex flex-col md:flex-row md:justify-around items-center justify-center my-0 mx-auto ">
+    <div className="login-container w-11/12 md:border-2  flex flex-col md:flex-row md:justify-around items-center justify-center my-0 mx-auto ">
       <div className="left-container md:w-1/3 hidden md:flex md:justify-center">
         <img className=" rounded-lg object-contain" src={foodImg} alt="" />
       </div>

@@ -35,7 +35,7 @@ function FilterMenu({ categories, handleClick }) {
                         setIsOpen={setShowDescription}
                         content={item?.card?.info?.description}
                         customClass={
-                          "font-thin text-xs flex items-center px-2 border-2 border-orange-100"
+                          "p-1 font-thin text-xs flex items-center px-2 border-2 border-orange-100 w-[300px] min-h-[60px] top-[calc(50%-50px)]   "
                         }
                       >
                         <div className="flex flex-col gap-1 py-1">

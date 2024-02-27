@@ -5,7 +5,7 @@ function Modal(props) {
   const { setIsOpen, customClass, children } = props;
   return (
     <div
-      className={` flex flex-col p-1 w-[300px] min-h-[60px] bg-white rounded-md shadow-md fixed top-[calc(50%-50px)] md:left-[calc(50%-90px)] left-[calc(50%-150px)] ${customClass}`}
+      className={` flex flex-col   bg-white rounded-md shadow-md fixed left-[calc(50%-150px)]  ${customClass} `}
     >
       <button
         className="absolute right-2 top-1"

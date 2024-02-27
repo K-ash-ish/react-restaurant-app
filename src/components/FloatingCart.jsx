@@ -62,7 +62,6 @@ function FloatingCart(props) {
           )}
           <NavLink
             to="/cart"
-            state={{ previousLocationPathName: location?.pathname }}
             className="border-b-2 rounded-md my-2 py-1 text-orange-500 no-underline text-center"
           >
             Checkout
@@ -73,7 +72,7 @@ function FloatingCart(props) {
         className=" bg-gray-50  w-40 mx-auto fixed bottom-10 left-0 right-0 border-2 border-red-300 rounded-md px-1 py-2 "
         onClick={() => setShowCart(!showCart)}
       >
-        Cart{" "}
+        Cart
         <span className="text-red-500 font-semibold">{cartItems.length}</span>
       </button>
     </>

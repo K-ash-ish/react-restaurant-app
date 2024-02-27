@@ -13,9 +13,7 @@ import { store } from "./app/store";
 import { Provider } from "react-redux";
 import ErrorBoundary from "./components/ErrorBoundary";
 import {
-  location,
   LocationContext,
-  setLocation,
 } from "./context/LocationContext";
 import { useState } from "react";
 import Header from "./components/layout/Header";
