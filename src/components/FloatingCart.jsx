@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeItem, repeatItem, updateCart } from "../features/cart/cartSlice";
 import { NavLink } from "react-router-dom";
+import { removeRestaurantInfo } from "../features/restaurant/restaurantSlice";
 
 function FloatingCart(props) {
   const { cartError } = props;
@@ -37,7 +38,9 @@ function FloatingCart(props) {
                         // if quantity was 1 then after removing it should be 0 so updating the cart
                         dispatch(updateCart());
                       }
-                      if (item.quantity === 0) setShowCart(false);
+                      if (item.quantity === 0) {
+                        setShowCart(false);
+                      }
                     }}
                   >
                     -
@@ -73,7 +76,9 @@ function FloatingCart(props) {
         onClick={() => setShowCart(!showCart)}
       >
         Cart
-        <span className="text-red-500 font-semibold">{cartItems.length}</span>
+        <span className="text-red-500 font-semibold ml-2">
+          {cartItems.length}
+        </span>
       </button>
     </>
   );

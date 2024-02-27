@@ -5,6 +5,8 @@ const initialState = {
     name: "",
     city: "",
     id: "",
+    locality: "",
+    cloudinaryImageId: "",
   },
 };
 
@@ -13,8 +15,14 @@ export const restaurantSlice = createSlice({
   initialState,
   reducers: {
     addRestaurantInfo: (state, action) => {
-      const { name, city, id } = action.payload;
-      state.cartRestaurantInfo = { name, city, id };
+      const { name, city, id, locality, cloudinaryImageId } = action.payload;
+      state.cartRestaurantInfo = {
+        name,
+        city,
+        id,
+        locality,
+        cloudinaryImageId,
+      };
     },
   },
 });

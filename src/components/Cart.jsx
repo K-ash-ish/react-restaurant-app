@@ -3,7 +3,12 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 
 import { v4 as uuidv4 } from "uuid";
-import { removeItem, repeatItem, updateCart } from "../features/cart/cartSlice";
+import {
+  clearCart,
+  removeItem,
+  repeatItem,
+  updateCart,
+} from "../features/cart/cartSlice";
 import { IMG_CDN_URL } from "../constant";
 import { NavLink } from "react-router-dom";
 import { useFirebase } from "../context/Firebase";
@@ -24,8 +29,10 @@ function Item(props) {
     }
   }
   return (
-    <div className="flex flex-row justify-evenly items-center mb-2 px-2">
-      <p className="px-2 text-base w-1/2 capitalize">{itemName}</p>
+    <div className="flex flex-row justify-evenly items-center mb-2 ">
+      <p className="text-base w-1/2 capitalize">
+        {itemName?.length > 4 ? itemName.substring(0, 20) + "..." : itemName}
+      </p>
       <div className=" px-2 mr-3 w-20 flex add-remove border-2 items-center justify-around">
         <button
           className=" text-red-500 text-3xl"
@@ -33,6 +40,7 @@ function Item(props) {
         >
           -
         </button>
+
         <p className="text-green-500 font-bold">{quantity}</p>
         <button
           className="text-green-500 text-2xl"
@@ -48,19 +56,8 @@ function Item(props) {
 function Cart() {
   const { user } = useFirebase();
   const cartItems = useSelector((state) => state?.cart?.cartItems);
-  // [
-  //     {
-  //         "dishName": "Butter Chicken Biryani",
-  //         "dishPrice": "450",
-  //         "quantity": 1
-  //     },
-  //     {
-  //         "dishName": "Dum Pukht Bombay Mutton Biryani",
-  //         "dishPrice": "450",
-  //         "quantity": 1
-  //     }
-  // ]
-  const currentRestaurant = useSelector(
+
+  const cartRestaurantInfo = useSelector(
     (state) => state?.restaurantInfo?.cartRestaurantInfo
   );
   const [showOrderConfirmationModal, setShowOrderConfirmationModal] =
@@ -96,22 +93,32 @@ function Cart() {
     );
   }
   return (
-    <section className="h-fit my-12 w-11/12 border-2  capitalize min-h-96 md:w-[340px] p-2 md:flex md:flex-col ">
-      <div className=" pb-3 flex   ">
-        <NavLink to={`/restaurant/${currentRestaurant?.id}`}>
-          <button className="pr-4 pl-1 text-2xl">
-            <FontAwesomeIcon icon={faArrowLeftLong} />
-          </button>
-        </NavLink>
-        <div className="">
-          <p className="font-medium">Restaurant Name</p>
-          <div className="flex font-light justify-evenly">
-            {/* check for item quantity for item / items */}
-            <p>{cartItems.length} items</p>|<p>ETA</p>
-          </div>
+    <section className="min-h-[250px] relative  border-2   capitalize min-h-96 w-[380px] p-2 flex flex-col justify-around gap-1 ">
+      <NavLink
+        to={`/restaurant/${cartRestaurantInfo?.id}`}
+        className="top-0  absolute text-xl "
+      >
+        <button>
+          <FontAwesomeIcon icon={faArrowLeftLong} />
+        </button>
+      </NavLink>
+      <div className="mt-5 mb-3 flex justify-between w-full">
+        <div className="flex gap-2">
+          <img
+            className="w-15 h-10"
+            src={IMG_CDN_URL + cartRestaurantInfo?.cloudinaryImageId}
+            alt="restaurant image"
+          />
+          <p className="font-medium">{cartRestaurantInfo?.name}</p>
+        </div>
+        <div className=" flex justify-center text-sm font-light gap-1 w-1/2 ">
+          {/* check for item quantity for item / items */}
+          <p>{cartItems.length} items</p>
+          <span>|</span>
+          <p>ETA</p>
         </div>
       </div>
-      <div className=" min-h-20  flex flex-col  ">
+      <div className="  flex flex-col ">
         {cartItems.map((item) => {
           return (
             <Item
@@ -124,7 +131,7 @@ function Cart() {
         })}
       </div>
 
-      <div className="order text-xl flex items-center justify-center h-24">
+      <div className=" text-xl flex items-center justify-center my-1 ">
         {showOrderConfirmationModal &&
           createPortal(
             <Modal
@@ -195,6 +202,11 @@ function Cart() {
                         setTimeout(() => {
                           setIsProcessingPayment(false);
                           setIsPaymentComplete(true);
+                          // do it seperately showing tick mark then payment complete <something>order Confirmed</something>
+                          // dispatch(clearCart());
+                          // document
+                          //   .getElementById("root")
+                          //   .classList.remove("blur-sm");
                         }, 5000);
                       }}
                     >
@@ -209,10 +221,12 @@ function Cart() {
         <NavLink to={`${user ? "" : "/login"}`}>
           <button
             onClick={() => {
-              document.getElementById("root").classList.add("blur-sm");
-              setShowOrderConfirmationModal(true);
+              if (user) {
+                document.getElementById("root").classList.add("blur-sm");
+                setShowOrderConfirmationModal(true);
+              }
             }}
-            className="px-4 py-1 border-2 border-red-300 cursor-pointer hover:text-white hover:bg-red-500 hover:border-none transition-colors ease-in duration-300 rounded-full"
+            className="px-4 py-1 my-1 border-2 border-red-300 cursor-pointer hover:text-white hover:bg-red-500  transition-colors ease-in duration-300 rounded-full"
           >
             Place Order
           </button>

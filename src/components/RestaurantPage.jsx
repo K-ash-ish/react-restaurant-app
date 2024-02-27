@@ -33,8 +33,8 @@ function RestaurantPage() {
 
   function handleClick(addItem) {
     if (cartItems?.length === 0) {
-      const { id, name, city } = restaurantInfo;
-      const info = { id, name, city };
+      const { id, name, city, cloudinaryImageId, locality } = restaurantInfo;
+      const info = { id, name, city, cloudinaryImageId, locality };
       dispatch(addRestaurantInfo(info));
     }
     if (
