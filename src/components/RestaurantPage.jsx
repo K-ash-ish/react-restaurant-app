@@ -14,21 +14,19 @@ import FilterMenu from "./ui/FilterMenu";
 function RestaurantPage() {
   const { id } = useParams();
   const [cartError, setCartError] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const cartRestaurantInfo = useSelector(
+    (state) => state.restaurantInfo.cartRestaurantInfo
+  );
+
   let restaurantMenu, restaurantInfo, categories;
   let restaurantDetails = useRestaurantMenu(id);
   if (restaurantDetails) {
     restaurantMenu = restaurantDetails.restaurantMenu;
     restaurantInfo = restaurantDetails.restaurantInfo;
     categories = restaurantMenu?.map((categories) => categories?.title);
-  }
-  // let restaurant = restaurantPage.data;
-  const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.cartItems);
-  const cartRestaurantInfo = useSelector(
-    (state) => state.restaurantInfo.cartRestaurantInfo
-  );
-  function repeatItems(dishName) {
-    dispatch(repeatItem(dishName));
   }
 
   function handleClick(addItem) {
@@ -51,7 +49,7 @@ function RestaurantPage() {
     if (isPresent.length === 0) {
       dispatch(addItems(addItem));
     } else {
-      repeatItems(addItem.dishName);
+      dispatch(repeatItem(addItem.dishName));
     }
   }
   return restaurantMenu ? (
@@ -83,7 +81,11 @@ function RestaurantPage() {
         </div>
         {cartItems?.length > 0 ? (
           <>
-            <FloatingCart cartError={cartError} />
+            <FloatingCart
+              cartError={cartError}
+              showCart={showCart}
+              setShowCart={setShowCart}
+            />
           </>
         ) : null}
       </div>

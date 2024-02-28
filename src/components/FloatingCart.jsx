@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { removeItem, repeatItem, updateCart } from "../features/cart/cartSlice";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { removeRestaurantInfo } from "../features/restaurant/restaurantSlice";
+import CartActionBtn from "./ui/CartActionBtn";
 
 function FloatingCart(props) {
-  const { cartError } = props;
-  const [showCart, setShowCart] = useState(false);
+  const { cartError, showCart, setShowCart } = props;
   const cartItems = useSelector((state) => state.cart.cartItems);
-  const dispatch = useDispatch();
 
   return (
     <>
@@ -29,32 +25,11 @@ function FloatingCart(props) {
                 <li className="text-sm underline">
                   {item.dishName?.substring(0, 25) + "..."}
                 </li>
-                <li className="font-semibold text-red-500 border-2 flex flex-row  items-center justify-between border-black w-16 px-2">
-                  <button
-                    className="font-semibold "
-                    onClick={() => {
-                      dispatch(removeItem(item.dishName));
-                      if (item.quantity === 1) {
-                        // if quantity was 1 then after removing it should be 0 so updating the cart
-                        dispatch(updateCart());
-                      }
-                      if (item.quantity === 0) {
-                        setShowCart(false);
-                      }
-                    }}
-                  >
-                    -
-                  </button>
-                  <p className="text-sm ">{item.quantity} </p>
-                  <button
-                    className="font-semibold"
-                    onClick={() => {
-                      dispatch(repeatItem(item.dishName));
-                    }}
-                  >
-                    +
-                  </button>
-                </li>
+
+                <CartActionBtn
+                  itemName={item?.dishName}
+                  quantity={item?.quantity}
+                />
               </ul>
             </div>
           ))}
