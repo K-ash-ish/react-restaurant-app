@@ -10,10 +10,10 @@ function FloatingCart(props) {
     <>
       <div
         className={`  fixed bottom-24 left-0 right-0  bg-gray-50  w-80 max-h-[200px] overflow-y-scroll px-2 py-1 mx-auto  rounded-xl shadow-md border-2  border-red-200   
-               transition-all ease-in-out duration-500 ${
+               transition-all ease-in-out duration-700 ${
                  showCart
                    ? "translate-y-0"
-                   : "translate-y-full opacity-0  border-none "
+                   : "translate-y-20 opacity-0 pointer-events-none border-none "
                }`}
       >
         <div className="px-2 flex flex-col gap-2">
