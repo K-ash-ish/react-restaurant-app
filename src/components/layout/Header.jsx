@@ -4,14 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShoppingCart,
   faLocationDot,
+  faUserAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useFirebase } from "../../context/Firebase";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
 import LocationSearch from "../LocationSearch";
 import { useState } from "react";
 import useGetCity from "../../hooks/useGetCity";
+import DropDownMenu from "../ui/DropDownMenu";
 function Header() {
   const [manualLocation, setManualLocation] = useState(false);
+  const [showDropDown, setShowDropDown] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems);
   const firebase = useFirebase();
   const totalItems = cartItems.reduce(
@@ -51,13 +53,26 @@ function Header() {
           </li>
         </NavLink>
         {firebase.user ? (
-          <div className="flex items-center gap-2">
-            <FontAwesomeIcon className="" icon={faUser} />
+          <div className="flex items-center gap-2 relative ">
+            <DropDownMenu isOpen={showDropDown} setIsOpen={setShowDropDown}>
+              <li className="hover:bg-gray-100 py-2 px-2 rounded-md cursor-pointer">
+                <a href="/">Orders</a>
+              </li>
+
+              <li className="hover:bg-gray-100 py-2 px-2 rounded-md text-red-500 cursor-pointer">
+                <button
+                  onClick={firebase.logOut}
+                  className="  cursor-pointer  "
+                >
+                  Logout
+                </button>
+              </li>
+            </DropDownMenu>
             <button
-              onClick={firebase.logOut}
-              className="border-2 border-red-300 px-4 rounded-full capitalize cursor-pointer hover:text-white hover:bg-red-500 hover:border-black transition-colors ease-in duration-300 "
+              className="cursor-pointer"
+              onClick={() => setShowDropDown(!showDropDown)}
             >
-              LogOut
+              <FontAwesomeIcon className="" icon={faUserAlt} />
             </button>
           </div>
         ) : (
