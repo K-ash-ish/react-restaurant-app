@@ -7,17 +7,15 @@ import {
 } from "react-router-dom";
 import Body from "./components/Body";
 import Cart from "./components/Cart";
-import Login from "./components/Login";
 import RestaurantPage from "./components/RestaurantPage";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
 import ErrorBoundary from "./components/ErrorBoundary";
-import {
-  LocationContext,
-} from "./context/LocationContext";
+import { LocationContext } from "./context/LocationContext";
 import { useState } from "react";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
+import AuthForm from "./components/AuthForm";
 function AppLayout() {
   const [location, setLocation] = useState();
   return (
@@ -40,7 +38,7 @@ const App = () => {
     createRoutesFromElements(
       <Route element=<AppLayout />>
         <Route path="/" element=<Body /> />
-        <Route path="login" element=<Login /> />
+        <Route path="login" element=<AuthForm /> />
         <Route path="cart" element=<Cart /> />
         <Route
           path="restaurant/:id"
