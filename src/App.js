@@ -16,6 +16,7 @@ import { useState } from "react";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import AuthForm from "./components/AuthForm";
+import Orders from "./components/Orders";
 function AppLayout() {
   const [location, setLocation] = useState();
   return (
@@ -23,7 +24,7 @@ function AppLayout() {
       <LocationContext.Provider
         value={{ location: location, setLocation: setLocation }}
       >
-        <div className=" flex flex-col justify-between items-center   min-h-screen md:min-h-screen">
+        <div className=" flex flex-col justify-between items-center min-h-screen">
           <Header />
           <Outlet />
           <Footer />
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/" element=<Body /> />
         <Route path="login" element=<AuthForm /> />
         <Route path="cart" element=<Cart /> />
+        <Route path="orders" element=<Orders /> />
         <Route
           path="restaurant/:id"
           element=<RestaurantPage />

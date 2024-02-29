@@ -1,3 +1,6 @@
+import { useDispatch } from "react-redux";
+import { addOrderDetails } from "../../features/order/orderSlice";
+
 function OrderSummaryModal({
   cartItems,
   isPaymenetComplete,
@@ -5,7 +8,9 @@ function OrderSummaryModal({
   setIsPaymentComplete,
   setIsProcessingPayment,
   itemTotal,
+  restaurantInfo,
 }) {
+  const dispatch = useDispatch();
   return (
     <div className="px-2 pb-2 flex flex-col gap-2 ">
       <h3 className="font-semibold ">Order details</h3>
@@ -64,6 +69,15 @@ function OrderSummaryModal({
               setTimeout(() => {
                 setIsProcessingPayment(false);
                 setIsPaymentComplete(true);
+                dispatch(
+                  addOrderDetails({
+                    restaurantInfo,
+                    cartItems,
+                    itemTotal,
+                    time: Date.now(),
+                  })
+                );
+
                 // do it seperately showing tick mark then payment complete <something>order Confirmed</something>
                 // dispatch(clearCart());
                 // document
