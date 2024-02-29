@@ -35,7 +35,9 @@ function Header() {
             icon={faLocationDot}
             className="text-orange-500 px-4"
           />
-          {cityName || "***"}
+          {cityName?.length > 12
+            ? cityName.substring(0, 12) + "..."
+            : cityName || "***"}
         </li>
         <li className="nav-item " onClick={() => setManualLocation(true)}>
           Location
@@ -55,18 +57,21 @@ function Header() {
         {firebase.user ? (
           <div className="flex items-center gap-2 relative ">
             <DropDownMenu isOpen={showDropDown} setIsOpen={setShowDropDown}>
-              <li className="hover:bg-gray-100 py-2 px-2 rounded-md cursor-pointer">
-                <a href="/">Orders</a>
-              </li>
+              <NavLink to="/orders" onClick={() => setShowDropDown(false)}>
+                <li className="hover:bg-gray-100 py-2 px-2 rounded-md cursor-pointer">
+                  Orders
+                </li>
+              </NavLink>
 
-              <li className="hover:bg-gray-100 py-2 px-2 rounded-md text-red-500 cursor-pointer">
-                <button
-                  onClick={firebase.logOut}
-                  className="  cursor-pointer  "
-                >
-                  Logout
-                </button>
-              </li>
+              <button
+                onClick={() => {
+                  firebase.logOut();
+                  setShowDropDown(false);
+                }}
+                className="hover:bg-gray-100 py-2 px-2 text-left rounded-md text-red-500 cursor-pointer"
+              >
+                Logout
+              </button>
             </DropDownMenu>
             <button
               className="cursor-pointer"

@@ -107,6 +107,7 @@ function Cart() {
               customClass={"w-[280px] top-[calc(50%-120px)]  py-2 px-1 "}
             >
               <OrderSummaryModal
+                restaurantInfo={cartRestaurantInfo}
                 cartItems={cartItems}
                 itemTotal={itemTotal}
                 isPaymenetComplete={isPaymenetComplete}

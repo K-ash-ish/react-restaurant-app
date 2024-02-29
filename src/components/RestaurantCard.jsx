@@ -4,7 +4,7 @@ function ReastaurantCard(props) {
     props;
   return (
     <div className="card   p-4 m-3  flex  md:flex-col  items-center justify-around hover:shadow-lg hover:rounded-md cursor-pointer">
-      <div className=" restaurant-img md:w-full  w-1/4 h-24 flex items-center">
+      <div className=" md:w-full  w-1/4 h-24 flex items-center">
         <img
           className="rounded-xl md:rounded-none "
           src={IMG_CDN_URL + cloudinaryImageId}
