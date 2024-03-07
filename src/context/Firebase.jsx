@@ -36,6 +36,8 @@ export const FirebaseProvider = (props) => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user?.email);
+      } else {
+        setUser(undefined);
       }
     });
   }, []);
