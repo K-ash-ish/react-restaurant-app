@@ -3,12 +3,7 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 
 import { v4 as uuidv4 } from "uuid";
-import {
-  clearCart,
-  removeItem,
-  repeatItem,
-  updateCart,
-} from "../features/cart/cartSlice";
+import { clearCart } from "../features/cart/cartSlice";
 import { IMG_CDN_URL } from "../constant";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useFirebase } from "../context/Firebase";
@@ -81,11 +76,13 @@ function Cart() {
               Order Something
             </button>
           </NavLink>
-          <NavLink to="/orders">
-            <button className="border-2  p-2 rounded-md shadow-md font-medium hover:bg-gray-100 transition-colors duration-500 border-red-400">
-              Your Orders
-            </button>
-          </NavLink>
+          {user && (
+            <NavLink to="/orders">
+              <button className="border-2  p-2 rounded-md shadow-md font-medium hover:bg-gray-100 transition-colors duration-500 border-red-400">
+                Your Orders
+              </button>
+            </NavLink>
+          )}
         </div>
       </div>
     );
