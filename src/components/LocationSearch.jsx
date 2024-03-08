@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import useManualLocation from "../hooks/useManualLocation";
@@ -8,7 +8,7 @@ import { LocationContext } from "../context/LocationContext";
 function LocationSearch(props) {
   const { setManualLocation } = props;
   const [searchLocation, setSearchLocation] = useState("");
-  const { location, setLocation } = useContext(LocationContext);
+  const { setLocation } = useContext(LocationContext);
   const suggestions = useManualLocation(searchLocation);
   return (
     <div className=" md:w-[350px] w-full h-full bg-gray-50 absolute top-0 right-0 border-l-2 z-20">

@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { FETCH_MENU } from "../constant";
-import useCurrentLocation from "./useCurrentLocation";
+import useBrowserLocation from "./useBrowserLocation";
 import { LocationContext } from "../context/LocationContext";
 
 function useRestaurantMenu(id) {
   const [restaurant, setRestaurant] = useState(null);
-  const { coordinates, setCoordinates } = useCurrentLocation();
+  const { coordinates } = useBrowserLocation();
   const { latitude, longitude } = coordinates;
   const { location } = useContext(LocationContext);
   function getResAndMenuInfo(json) {

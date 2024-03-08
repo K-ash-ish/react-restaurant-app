@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import useCurrentLocation from "./useCurrentLocation";
+import useBrowserLocation from "./useBrowserLocation";
 import { LocationContext } from "../context/LocationContext";
 import { FETCH_RESTAURANT } from "../constant";
 
@@ -10,7 +10,7 @@ function useRestaurants() {
   const [isLoading, setIsLoading] = useState(false);
   const [swiggyNotPresent, setSwiggyNotPresent] = useState(false);
   const [offset, setOffset] = useState(0);
-  const { coordinates, setCoordinates } = useCurrentLocation();
+  const { coordinates } = useBrowserLocation();
   const { latitude, longitude } = coordinates;
   const { location } = useContext(LocationContext);
   function checkResData(json) {

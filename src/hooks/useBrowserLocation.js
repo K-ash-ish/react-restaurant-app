@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useCurrentLocation = () => {
+const useBrowserLocation = () => {
   const [coordinates, setCoordinates] = useState({
     latitude: "",
     longitude: "",
@@ -14,9 +14,10 @@ const useCurrentLocation = () => {
     });
   }
   useEffect(() => {
+    console.log("useBrowserLocation " + coordinates);
     navigator.geolocation.getCurrentPosition(getLocation);
   }, []);
   return { coordinates, setCoordinates };
 };
 
-export default useCurrentLocation;
+export default useBrowserLocation;
