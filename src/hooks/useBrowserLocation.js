@@ -14,7 +14,6 @@ const useBrowserLocation = () => {
     });
   }
   useEffect(() => {
-    console.log("useBrowserLocation " + coordinates);
     navigator.geolocation.getCurrentPosition(getLocation);
   }, []);
   return { coordinates, setCoordinates };

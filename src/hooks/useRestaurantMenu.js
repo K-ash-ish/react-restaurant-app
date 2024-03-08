@@ -29,24 +29,26 @@ function useRestaurantMenu(id) {
   }
 
   const getRestaurantMenu = async () => {
-    const data = await fetch(
-      `${FETCH_MENU}id=${id}&longitude=${location?.lng || longitude}&latitude=${
-        location?.lat || latitude
-      }`
-    );
-    // const data = await fetch(
-    //   `${FETCH_MENU}&lat=${location?.lat || latitude}&lng=${
-    //     location?.lng || longitude
-    //   }&restaurantId=${id}&submitAction=ENTER`
-    // );
-    const json = await data.json();
-    const { restaurantInfo, restaurantMenu } = getResAndMenuInfo(json);
+    if ((location?.lat || latitude) && (location?.lng || longitude)) {
+      const data = await fetch(
+        `${FETCH_MENU}id=${id}&longitude=${
+          location?.lng || longitude
+        }&latitude=${location?.lat || latitude}`
+      );
+      // const data = await fetch(
+      //   `${FETCH_MENU}&lat=${location?.lat || latitude}&lng=${
+      //     location?.lng || longitude
+      //   }&restaurantId=${id}&submitAction=ENTER`
+      // );
+      const json = await data.json();
+      const { restaurantInfo, restaurantMenu } = getResAndMenuInfo(json);
 
-    if (restaurantInfo && restaurantMenu) {
-      setRestaurant({ restaurantInfo, restaurantMenu });
+      if (restaurantInfo && restaurantMenu) {
+        setRestaurant({ restaurantInfo, restaurantMenu });
+      }
+      // const restaurantdetails = restaurantPage;
+      // setRestaurant(restaurantdetails.data);
     }
-    // const restaurantdetails = restaurantPage;
-    // setRestaurant(restaurantdetails.data);
   };
   useEffect(() => {
     getRestaurantMenu();

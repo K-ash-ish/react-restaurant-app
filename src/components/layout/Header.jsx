@@ -10,7 +10,7 @@ import {
 import { useFirebase } from "../../context/Firebase";
 import LocationSearch from "../LocationSearch";
 import { useEffect, useState } from "react";
-import useGetCity from "../../hooks/useGetCity";
+import useGetCityName from "../../hooks/useGetCityName";
 import DropDownMenu from "../ui/DropDownMenu";
 function Header() {
   const [manualLocation, setManualLocation] = useState(false);
@@ -22,7 +22,7 @@ function Header() {
     (accumulator, currentValue) => accumulator + currentValue.quantity,
     0
   );
-  const cityName = useGetCity();
+  const cityName = useGetCityName();
   useEffect(() => {
     (async () => {
       try {

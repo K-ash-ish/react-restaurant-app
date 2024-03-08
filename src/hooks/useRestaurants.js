@@ -40,20 +40,22 @@ function useRestaurants() {
   }
   const getRestaurantsDetail = async () => {
     //change to render url
-    const localApi = await fetch(
-      `${FETCH_RESTAURANT}latitude=${location?.lat || latitude}&longitude=${
-        location?.lng || longitude
-      }`
-      // `${FETCH_RESTAURANT}lat=${location?.lat || latitude}&lng=${
-      //   location?.lng || longitude
-      // }`
-    );
+    if ((location?.lat || latitude) && (location?.lng || longitude)) {
+      const localApi = await fetch(
+        `${FETCH_RESTAURANT}latitude=${location?.lat || latitude}&longitude=${
+          location?.lng || longitude
+        }`
+        // `${FETCH_RESTAURANT}lat=${location?.lat || latitude}&lng=${
+        //   location?.lng || longitude
+        // }`
+      );
 
-    const localJson = await localApi.json();
-    const { restaurantData, restaurantCount } = checkResData(localJson);
-    setTotalRestaurant(restaurantCount);
-    setAllRestaurants(restaurantData);
-    setFilterRestaurant(restaurantData);
+      const localJson = await localApi.json();
+      const { restaurantData, restaurantCount } = checkResData(localJson);
+      setTotalRestaurant(restaurantCount);
+      setAllRestaurants(restaurantData);
+      setFilterRestaurant(restaurantData);
+    }
   };
   useEffect(() => {
     offset > 0 &&
