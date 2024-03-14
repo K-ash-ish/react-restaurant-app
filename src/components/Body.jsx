@@ -1,16 +1,17 @@
 import ReastaurantCard from "./RestaurantCard";
 import { v4 as uuidv4 } from "uuid";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { cuisineCategory, FETCH_RESTAURANT } from "../constant";
+import { Link, useNavigate } from "react-router-dom";
+import { cuisineCategory } from "../constant";
 import useOnline from "../hooks/useOnline";
 import filterRestaurants, { filterByCuisines } from "../utils/helper";
 import useRestaurants from "../hooks/useRestaurants";
-import { RestaurantCardShimmer, RestaurantsShimmer } from "./ui/Shimmer";
+import { RestaurantCardShimmer } from "./ui/Shimmer";
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
-  const observer = useRef();
+  const observer = useRef(null);
+  const navigate = useNavigate();
   const {
     allRestaurants,
     filterRestaurant,
@@ -22,8 +23,17 @@ const Body = () => {
     setIsLoading,
     swiggyNotPresent,
   } = useRestaurants();
+
   useEffect(() => {}, [swiggyNotPresent]);
+
+  console.log("observer: ", observer);
+
   // infinite scroll
+  const lastRestaruant = useCallback((node) => {
+    if (isLoading) return;
+
+    console.log(node);
+  });
   // const lastRestaurantCard = useCallback(
   //   (node) => {
   //     if (isLoading) return;
@@ -93,16 +103,32 @@ const Body = () => {
             ))}
           </div>
         </div>
-        <div className="my-0 mx-auto  flex flex-col  sm:flex-row sm:w-5/6 w-full  sm:flex-wrap items-center justify-center  ">
+        <div className="my-0 mx-auto   flex flex-col items-center   sm:flex-row sm:w-5/6 w-full  sm:flex-wrap  justify-center   ">
           {filterRestaurant?.length === 0 ? (
             <h1>Restaurant Not found</h1>
           ) : (
             filterRestaurant?.map((restaurant, index) => {
-              return (
-                <Link key={uuidv4()} to={"/restaurant/" + restaurant?.info?.id}>
-                  <ReastaurantCard {...restaurant?.info} />
-                </Link>
-              );
+              if (filterRestaurant?.length === index + 1) {
+                return (
+                  <ReastaurantCard
+                    key={uuidv4()}
+                    {...restaurant?.info}
+                    handleClick={() => {
+                      navigate("/restaurant/" + restaurant?.info?.id);
+                    }}
+                  />
+                );
+              } else {
+                return (
+                  <ReastaurantCard
+                    key={uuidv4()}
+                    {...restaurant?.info}
+                    handleClick={() => {
+                      navigate("/restaurant/" + restaurant?.info?.id);
+                    }}
+                  />
+                );
+              }
             })
           )}
           {isLoading && <RestaurantCardShimmer />}

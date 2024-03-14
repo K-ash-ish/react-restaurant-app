@@ -1,9 +1,19 @@
 import { IMG_CDN_URL } from "../constant";
 function ReastaurantCard(props) {
-  const { name, cuisines, cloudinaryImageId, avgRating, costForTwo, sla } =
-    props;
+  const {
+    name,
+    cuisines,
+    cloudinaryImageId,
+    avgRating,
+    costForTwo,
+    sla,
+    handleClick,
+  } = props;
   return (
-    <div className="card   p-4 m-3  flex  md:flex-col  items-center justify-around hover:shadow-lg hover:rounded-md cursor-pointer">
+    <div
+      className="card   p-4 m-3  flex  md:flex-col  items-center justify-around hover:shadow-lg hover:rounded-md cursor-pointer"
+      onClick={handleClick}
+    >
       <div className=" md:w-full  w-1/4 h-24 flex items-center">
         <img
           className="rounded-xl md:rounded-none "
