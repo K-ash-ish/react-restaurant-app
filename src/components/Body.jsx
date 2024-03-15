@@ -10,45 +10,18 @@ import { RestaurantCardShimmer } from "./ui/Shimmer";
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
-  const observer = useRef(null);
   const navigate = useNavigate();
   const {
     allRestaurants,
     filterRestaurant,
     setFilterRestaurant,
-    totalRestaurant,
-    offset,
-    setOffset,
     isLoading,
-    setIsLoading,
     swiggyNotPresent,
   } = useRestaurants();
 
   useEffect(() => {}, [swiggyNotPresent]);
 
-  console.log("observer: ", observer);
-
   // infinite scroll
-  const lastRestaruant = useCallback((node) => {
-    if (isLoading) return;
-
-    console.log(node);
-  });
-  // const lastRestaurantCard = useCallback(
-  //   (node) => {
-  //     if (isLoading) return;
-  //     if (observer.current) observer.current.disconnect;
-  //     observer.current = new IntersectionObserver((restaurants) => {
-  //       if (restaurants[0].isIntersecting && offset + 15 <= totalRestaurant) {
-  //         setIsLoading(true);
-  //         setOffset(offset + 16);
-  //       }
-  //     });
-  //     if (node) observer.current.observe(node);
-  //   },
-  //   [offset, totalRestaurant, isLoading]
-  // );
-
   const isOnline = useOnline();
   if (!isOnline) {
     return <h1>Please Check Your Network</h1>;
@@ -108,27 +81,16 @@ const Body = () => {
             <h1>Restaurant Not found</h1>
           ) : (
             filterRestaurant?.map((restaurant, index) => {
-              if (filterRestaurant?.length === index + 1) {
-                return (
+              return (
+                <div key={uuidv4()}>
                   <ReastaurantCard
-                    key={uuidv4()}
                     {...restaurant?.info}
                     handleClick={() => {
                       navigate("/restaurant/" + restaurant?.info?.id);
                     }}
                   />
-                );
-              } else {
-                return (
-                  <ReastaurantCard
-                    key={uuidv4()}
-                    {...restaurant?.info}
-                    handleClick={() => {
-                      navigate("/restaurant/" + restaurant?.info?.id);
-                    }}
-                  />
-                );
-              }
+                </div>
+              );
             })
           )}
           {isLoading && <RestaurantCardShimmer />}

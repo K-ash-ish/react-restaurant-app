@@ -9,7 +9,6 @@ function useRestaurants() {
   const [filterRestaurant, setFilterRestaurant] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [swiggyNotPresent, setSwiggyNotPresent] = useState(false);
-  const [offset, setOffset] = useState(0);
   const { coordinates } = useBrowserLocation();
   const { latitude, longitude } = coordinates;
   const { location } = useContext(LocationContext);
@@ -57,27 +56,11 @@ function useRestaurants() {
       setFilterRestaurant(restaurantData);
     }
   };
-  useEffect(() => {
-    offset > 0 &&
-      (async () => {
-        const localApi = await fetch(
-          `${FETCH_RESTAURANT}latitude=${location?.lat || latitude}&longitude=${
-            location?.lng || longitude
-          }&offset=${offset}`
-        );
-        const localJson = await localApi.json();
-        const { restaurantData } = checkResData(localJson);
-        setIsLoading(false);
-        setAllRestaurants((prevValue) => [...prevValue, ...restaurantData]);
-        setFilterRestaurant((prevValue) => [...prevValue, ...restaurantData]);
-      })();
-  }, [offset]);
 
   useEffect(() => {
     setAllRestaurants([]);
     setFilterRestaurant([]);
     setTotalRestaurant(0);
-    setOffset(0);
     if (swiggyNotPresent) {
       setSwiggyNotPresent(false);
     }
@@ -87,8 +70,6 @@ function useRestaurants() {
     allRestaurants,
     filterRestaurant,
     setFilterRestaurant,
-    setOffset,
-    offset,
     totalRestaurant,
     isLoading,
     setIsLoading,
