@@ -38,7 +38,7 @@ function Orders() {
                 <Modal
                   isOpen={showOrderDetails}
                   setIsOpen={setShowOrderDetails}
-                  customClass={"w-[280px] top-[calc(50%-120px)]  py-2 px-1 "}
+                  customClass={"w-[280px] py-2 px-1 "}
                 >
                   <OrderSummaryModal
                     cartItems={order?.cartItems}

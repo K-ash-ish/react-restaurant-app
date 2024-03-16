@@ -3,7 +3,7 @@ import { addOrderDetails } from "../../features/order/orderSlice";
 
 function OrderSummaryModal({
   cartItems,
-  isPaymenetComplete,
+  isPaymentComplete,
   isProcessingPayment,
   setIsPaymentComplete,
   setIsProcessingPayment,
@@ -48,7 +48,7 @@ function OrderSummaryModal({
           </p>
         </div>
       </div>
-      {isPaymenetComplete && (
+      {isPaymentComplete && (
         <div className="text-sm text-green-600 flex justify-center ">
           <p>Payment Successfull</p>
         </div>
@@ -61,9 +61,9 @@ function OrderSummaryModal({
           </div>
         </div>
       ) : (
-        !isPaymenetComplete && (
+        !isPaymentComplete && (
           <button
-            className="border-2 border-black self-center px-3  hover:bg-green-400  transition-colors rounded-full"
+            className="border-2 border-black self-center px-3 z-50 hover:bg-green-400  transition-colors rounded-full"
             onClick={() => {
               setIsProcessingPayment(true);
               setTimeout(() => {
@@ -77,12 +77,6 @@ function OrderSummaryModal({
                     time: Date.now(),
                   })
                 );
-
-                // do it seperately showing tick mark then payment complete <something>order Confirmed</something>
-                // dispatch(clearCart());
-                // document
-                //   .getElementById("root")
-                //   .classList.remove("blur-sm");
               }, 5000);
             }}
           >

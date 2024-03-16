@@ -135,7 +135,7 @@ function Cart() {
                 restaurantInfo={cartRestaurantInfo}
                 cartItems={cartItems}
                 itemTotal={itemTotal}
-                isPaymenetComplete={isPaymentComplete}
+                isPaymentComplete={isPaymentComplete}
                 isProcessingPayment={isProcessingPayment}
                 setIsPaymentComplete={setIsPaymentComplete}
                 setIsProcessingPayment={setIsProcessingPayment}
