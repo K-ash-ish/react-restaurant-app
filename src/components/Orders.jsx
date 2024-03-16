@@ -43,7 +43,7 @@ function Orders() {
                   <OrderSummaryModal
                     cartItems={order?.cartItems}
                     itemTotal={order?.itemTotal}
-                    isPaymenetComplete={true}
+                    isPaymentComplete={true}
                     isProcessingPayment={false}
                   />
                 </Modal>,
