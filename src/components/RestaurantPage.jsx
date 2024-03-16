@@ -111,7 +111,7 @@ function RestaurantPage() {
                   <Categories
                     key={index}
                     scrollToSection={scrollToSection}
-                    customClass="  text-xs font-medium cursor-pointer my-2  rounded-md list-disc  "
+                    customClass=" text-xs font-thin cursor-pointer my-2  rounded-md list-disc  "
                     category={category}
                   />
                 );
@@ -120,7 +120,7 @@ function RestaurantPage() {
           </FloatingPanel>
         }
         <button
-          className="bg-cyan-400  fixed right-2  bottom-4 flex items-center touch-pan-down p-4 rounded-full"
+          className="bg-cyan-400  fixed right-2  bottom-4 flex items-center md:hidden p-4 rounded-full"
           onClick={() => {
             setShowMenu(!showMenu);
           }}
