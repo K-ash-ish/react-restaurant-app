@@ -16,6 +16,7 @@ function ReastaurantCard(props) {
     >
       <div className=" md:w-full  w-1/4 h-24 flex items-center">
         <img
+          loading="lazy"
           className="rounded-xl md:rounded-none "
           src={IMG_CDN_URL + cloudinaryImageId}
           alt={name + "restaurant"}

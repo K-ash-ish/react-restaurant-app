@@ -1,12 +1,12 @@
 import ReastaurantCard from "./RestaurantCard";
 import { v4 as uuidv4 } from "uuid";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { cuisineCategory } from "../constant";
 import useOnline from "../hooks/useOnline";
 import filterRestaurants, { filterByCuisines } from "../utils/helper";
 import useRestaurants from "../hooks/useRestaurants";
-import { RestaurantCardShimmer } from "./ui/Shimmer";
+import { RestaurantsShimmer } from "./ui/Shimmer";
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
@@ -33,6 +33,9 @@ const Body = () => {
         location
       </div>
     );
+  }
+  if (isLoading) {
+    return <RestaurantsShimmer />;
   }
   return (
     allRestaurants?.length > 0 && (
@@ -93,7 +96,6 @@ const Body = () => {
               );
             })
           )}
-          {isLoading && <RestaurantCardShimmer />}
         </div>
       </div>
     )

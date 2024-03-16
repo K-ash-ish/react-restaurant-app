@@ -51,6 +51,7 @@ function FilteredItem({ item, handleClick }) {
       <div className=" px-2 flex md:flex-row flex-wrap flex-col justify-around  md:justify-between  items-center w-1/3  h-36">
         {imageId ? (
           <img
+            loading="lazy"
             src={IMG_CDN_URL + imageId}
             alt={name}
             className="md:w-32 w-28 rounded-lg y-0 mx-auto"

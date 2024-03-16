@@ -40,6 +40,7 @@ function useRestaurants() {
   const getRestaurantsDetail = async () => {
     //change to render url
     if ((location?.lat || latitude) && (location?.lng || longitude)) {
+      setIsLoading(true);
       const localApi = await fetch(
         `${FETCH_RESTAURANT}latitude=${location?.lat || latitude}&longitude=${
           location?.lng || longitude
@@ -50,6 +51,7 @@ function useRestaurants() {
       );
 
       const localJson = await localApi.json();
+      setIsLoading(false);
       const { restaurantData, restaurantCount } = checkResData(localJson);
       setTotalRestaurant(restaurantCount);
       setAllRestaurants(restaurantData);
