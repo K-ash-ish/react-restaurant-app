@@ -79,7 +79,7 @@ const Body = () => {
             ))}
           </div>
         </div>
-        <div className="my-0 mx-auto   flex flex-col items-center   sm:flex-row sm:w-5/6 w-full  sm:flex-wrap  justify-center   ">
+        <div className="card-container my-0 mx-auto flex flex-col items-center   sm:flex-row sm:w-5/6 w-full  sm:flex-wrap  justify-center   ">
           {filterRestaurant?.length === 0 ? (
             <h1>Restaurant Not found</h1>
           ) : (
@@ -96,6 +96,14 @@ const Body = () => {
               );
             })
           )}
+          {Array(3)
+            .fill("")
+            .map((_, index) => (
+              <div
+                key={index}
+                className="sm:w-[250px] sm:h-0  hidden md:block  sm:m-3 "
+              ></div>
+            ))}
         </div>
       </div>
     )
