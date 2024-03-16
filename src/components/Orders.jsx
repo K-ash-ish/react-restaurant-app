@@ -53,7 +53,6 @@ function Orders() {
               className="font-medium text-orange-500 "
               onClick={() => {
                 setShowOrderDetails(true);
-                document.getElementById("root").classList.add("blur-sm");
               }}
             >
               Order details

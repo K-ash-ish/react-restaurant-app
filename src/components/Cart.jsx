@@ -48,7 +48,6 @@ function Cart() {
   // check for dependency array [LOGIC]
   useEffect(() => {
     if (isPaymentComplete && !showOrderConfirmationModal) {
-      document.getElementById("root").classList.remove("blur-sm");
       dispatch(clearCart());
     }
   }, [isPaymentComplete, showOrderConfirmationModal]);
@@ -130,7 +129,7 @@ function Cart() {
             <Modal
               isOpen={showOrderConfirmationModal}
               setIsOpen={setShowOrderConfirmationModal}
-              customClass={"w-[280px] top-[calc(50%-120px)]  py-2 px-1 "}
+              customClass={"w-[280px] py-2 px-1 "}
             >
               <OrderSummaryModal
                 restaurantInfo={cartRestaurantInfo}
@@ -148,7 +147,6 @@ function Cart() {
           <button
             onClick={() => {
               if (user) {
-                document.getElementById("root").classList.add("blur-sm");
                 setShowOrderConfirmationModal(true);
               }
             }}

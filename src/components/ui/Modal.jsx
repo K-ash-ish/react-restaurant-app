@@ -1,23 +1,25 @@
 import { faClose, faCross } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ModalWrapper from "./ModalWrapper";
 
 function Modal(props) {
-  const { setIsOpen, customClass, children } = props;
+  const { setIsOpen, isOpen, customClass, children } = props;
   return (
-    <div
-      className={` flex flex-col   bg-white rounded-md shadow-md fixed left-[calc(50%-150px)]  ${customClass} `}
-    >
-      <button
-        className="absolute right-2 top-1"
-        onClick={() => {
-          document.getElementById("root").classList.remove("blur-sm");
-          setIsOpen(false);
-        }}
+    <ModalWrapper setShowModal={setIsOpen} showModal={isOpen}>
+      <div
+        className={` flex flex-col relative   bg-white rounded-md shadow-md  ${customClass} `}
       >
-        <FontAwesomeIcon icon={faClose} className="text-red-500" />
-      </button>
-      {children}
-    </div>
+        <button
+          className="absolute right-2 top-1"
+          onClick={() => {
+            setIsOpen(false);
+          }}
+        >
+          <FontAwesomeIcon icon={faClose} className="text-red-500" />
+        </button>
+        {children}
+      </div>
+    </ModalWrapper>
   );
 }
 

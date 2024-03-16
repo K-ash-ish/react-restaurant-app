@@ -103,7 +103,7 @@ function RestaurantPage() {
           <FloatingPanel
             showPanel={showMenu}
             setShowPanel={setShowMenu}
-            customClass=" fixed right-0 left-0 w-1/2 "
+            customClass="  w-1/2 bg-white"
           >
             <ul className="flex-col flex pl-4">
               {categories?.map((category, index) => {
@@ -120,12 +120,12 @@ function RestaurantPage() {
           </FloatingPanel>
         }
         <button
-          className="border-2 bg-blue-400 w-auto fixed right-2  bottom-4 flex items-center gap-2 p-5 rounded-full"
+          className="bg-cyan-400  fixed right-2  bottom-4 flex items-center touch-pan-down p-4 rounded-full"
           onClick={() => {
             setShowMenu(!showMenu);
           }}
         >
-          <FontAwesomeIcon icon={faBars} />
+          <FontAwesomeIcon icon={faBars} className="text-white" />
         </button>
         {cartItems?.length > 0 ? (
           <>

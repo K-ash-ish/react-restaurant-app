@@ -27,7 +27,7 @@ function FilteredItem({ item, handleClick }) {
                   setIsOpen={setShowDescription}
                   content={description}
                   customClass={
-                    "p-1 font-thin text-xs flex items-center px-2 border-2 border-orange-100 w-[300px] min-h-[60px] top-[calc(50%-50px)]   "
+                    "p-1 font-thin text-xs flex items-center px-2 border-2 border-orange-100 w-[300px] min-h-[60px]   "
                   }
                 >
                   <div className="flex flex-col gap-1 py-1">
@@ -40,7 +40,6 @@ function FilteredItem({ item, handleClick }) {
             <button
               className=" text-xs underline decoration-red-500 underline-offset-1 font-light"
               onClick={() => {
-                document.getElementById("root").classList.toggle("blur-sm");
                 setShowDescription(true);
               }}
             >
