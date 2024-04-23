@@ -79,7 +79,7 @@ const Body = () => {
             ))}
           </div>
         </div>
-        <div className="card-container my-0 mx-auto flex flex-col items-center   sm:flex-row sm:w-5/6 w-full  sm:flex-wrap  justify-center   ">
+        <div className="   my-4 md:my-0 mx-auto flex flex-col    sm:flex-row sm:w-5/6 w-full  sm:flex-wrap  justify-center   ">
           {filterRestaurant?.length === 0 ? (
             <h1>Restaurant Not found</h1>
           ) : (
