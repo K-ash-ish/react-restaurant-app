@@ -8,7 +8,7 @@ function RestaurantCardShimmer() {
 }
 function RestaurantsShimmer() {
   return (
-    <div className="my-0 mx-auto  flex flex-col  sm:flex-row sm:w-5/6 w-full  sm:flex-wrap items-center justify-center ">
+    <div className="my-4 mx-auto  flex flex-col  sm:flex-row sm:w-5/6 w-full  sm:flex-wrap items-center justify-center ">
       {Array(8)
         .fill("")
         .map((_, index) => (

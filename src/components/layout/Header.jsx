@@ -38,7 +38,7 @@ function Header() {
     })();
   }, [firebase?.user]);
   return (
-    <nav className="flex flex-col md:flex-row md:justify-around w-full items-center justify-around my-2 py-1 md:border-b-2 h-20">
+    <nav className="flex flex-col md:flex-row md:justify-around w-full items-center justify-around my-2 py-1 md:border-b-2 min-h-20">
       <NavLink to="/">
         <h1 className="text-3xl tracking-wider font-bold my-4">
           Eat<span className="text-rose-500 tracking-wider">Treat</span>
